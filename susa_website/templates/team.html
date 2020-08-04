@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} SUSA | Our Team {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/team.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
+<div class="text-container">
+    <div class="people-container">
+        <div id="people">
+            <h1>Meet us!</h1>
+            <div class="people-array">
+            {% for member in team %}
+                <div class ="person">
+                    <div>
+                        <h2 class="name">{{ member.name }}</h2>
+                        <h3 class="role">{{ member.role }}</h3>
+                        <div class="intro-container" style="
+                            background-image: url({{ '/static/portraits/{}'.format(member.portrait) }});
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                            -webkit-background-size: cover;
+                            -moz-background-size: cover;
+                            -o-background-size: cover;
+                            background-size: cover;">
+                            <div class="intro">
+                            {{ Markup(member.summary) }}
+                            </div>
+                        </div>
+                        <div class="summary-container">
+                            <ol class="attributes">
+                                <li>> summary({{ member.name.split()[0].lower() }})</li>
+                                <li>Major: {{ member.major }}</li>
+                                <li>Year: {{ member.year }}</li>
+                                <li>From: {{ member.origin }}</li>
+                                <li>Current Classes: {{ member.classes }}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+<div id="text">
+    {{ Markup(about_team) }}
+    {{ Markup(apply_info) }}
+</div>
+</div>
+{% endblock %}

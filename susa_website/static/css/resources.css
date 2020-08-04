@@ -1,0 +1,24 @@
+/* Styling for the resources page
+File: "/resources/index.php"
+*/
+
+.text-container{
+    min-height: calc(100vh - 5em);
+    padding-top: 5em;
+    width: 100%;
+}
+
+#text {
+    width: 70%;
+    left: 50%;
+    margin-left: -35%;
+    padding-bottom: 9em;
+}
+
+.link-list li:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.link-list li {
+    margin-top: 1em;
+}

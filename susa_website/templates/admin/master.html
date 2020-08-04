@@ -1,0 +1,20 @@
+{% extends admin_base_template %}
+
+{% block title %} SUSA | Admin Panel {% endblock %}
+
+{% block head_css %}
+{{ super() }}
+<link rel="stylesheet" href="/static/css/admin/general.css"></link>
+<link rel="stylesheet" href="/static/css/admin/nav.css"></link>
+<link rel="stylesheet" href="/static/css/admin/table.css"></link>
+{% endblock %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+<link rel = "icon" href = "/static/images/susa-icon-196x196.png">
+<meta name = "description" content = "SUSA Admin Panel">
+{% endblock %}
+
+{% block brand %}
+<img src="/static/images/susa_big_blue_alt.png" class="logo" alt="SUSA Logo">
+{% endblock %}

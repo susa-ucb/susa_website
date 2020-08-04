@@ -1,0 +1,14 @@
+.navbar+h3 {
+    padding-top: 4em;
+}
+
+.navbar+h3, .admin-form {
+    position: relative;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+}
+
+.form-control {
+    height: 3em;
+}

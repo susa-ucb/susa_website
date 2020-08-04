@@ -1,0 +1,40 @@
+/* Styling for the events/calendar page
+File: "/events/index.php"
+*/
+
+.calendar-container{
+    height: calc(85vh - 6em);
+    width: 80%;
+    left: 50%;
+    padding-top: 6em;
+    margin-left: -40%;
+}
+
+
+.info-container {
+    width: 100%;
+    padding-top: 8em;
+    min-height: calc(100vh - 8em);
+}
+
+#info {
+    width: 70%;
+    left: 50%;
+    margin-left: -35%;
+    padding-bottom: 9em;
+}
+
+.event-list {
+    list-style:none;
+    margin: 0;
+    padding: 0;
+}
+
+.event-list li:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.event-list li {
+    margin-top: 1em;
+    margin-left: 6em;
+}

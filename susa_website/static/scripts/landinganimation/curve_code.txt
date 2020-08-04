@@ -1,0 +1,24 @@
+# load RSQLite
+> library(RSQLite)
+# connect database
+> conn <- dbConnect(SQLite(), "susa.db")
+# get our team member names
+> names <- dbGetQuery(conn, "SELECT name FROM team ORDER BY position")
+> cat(paste("Our current team members: ", names, "\n"))
+{names}
+# load ggplot2
+> library(ggplot2)
+# generate gamma distribution ggplot code
+> curves <- "ggplot(data.frame(x=0:60), aes(x)) +
++ scale_x_continuous(expand = c(0,0)) +
++ scale_y_continuous(expand = c(0,0)) +
++ theme_void() +
++ ggtitle("Statistics Undergraduate Student Association")"
+> for (shape in 1:5) {{
++    for (rate in 1) {{
++        curves = paste(curves, sprintf(
++            "+ stat_function(fun=function(x) dgamma(x, %s, %s), size=2, color='#003262', n=500)", shape, rate))
++    }}
++ }}
+# execute string code
+> eval(parse(text=curves))

@@ -1,0 +1,12 @@
+.text-container {
+    width: 100%;
+    padding-top: 8em;
+}
+
+#text {
+    position: relative;
+    width: 70%;
+    left: 50%;
+    margin-left: -35%;
+    line-height: 2em;
+}

@@ -1,0 +1,23 @@
+.container-error {
+    padding-top: 5em;
+    width: 100%;
+    min-height: calc(100vh - 5em);
+}
+
+#error {
+    font-size: 1.5em;
+    position: relative;
+    text-align: center;
+    padding-bottom: 9em;
+}
+
+#back {
+    top: 1em;
+    font-size: 1.5em;
+    padding: .75em;
+    background-color: red;
+    border-radius: .5em;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}

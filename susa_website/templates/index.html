@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Statistics Undergraduate Student Association {% endblock title %}
+
+{% block head_css %}
+<link rel = "stylesheet" type = "text/css" href = "/static/css/landing.css">
+<link rel = "stylesheet" type = "text/css" href = "/static/css/animation.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
+{% endblock head_css %}
+
+{% block content %}
+<div id="container-landing">
+    <div id = "container-animation">
+        {{ Markup(gammas_svg) }}
+        <div id = "container-code">
+            <p id="curve-code">
+                {{ Markup(code_text) }}
+            </p>
+        </div>
+    </div>
+    <script src="/static/scripts/landinganimation/susa_curve.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            animateText('curve-code');
+        });
+    </script>
+    {{ Markup(landing_text) }}
+    <hr class="divide"/>
+    <div id="blender"></div>
+</div>
+<div id = "introduction">
+    <div id = "text">
+        {{ Markup(home_text) }}
+    </div>
+</div>
+
+{% endblock content %}

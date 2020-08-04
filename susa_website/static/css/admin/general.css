@@ -1,0 +1,54 @@
+/* General overrides to bootstrap css in admin panel */
+* {
+    font-family: 'Raleway';
+}
+
+html {
+    font-size: default;
+}
+
+code {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+body {
+    padding-top: 0;
+    font-size: 1.5em;
+    line-height: default;
+    height: auto;
+    margin : 0;
+    line-height: normal;
+}
+
+.alert {
+    position: relative;
+    margin-top: 8em;
+    width: 70%;
+    left: 50%;
+    margin-left: -35%;
+    margin-bottom: -4em;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 1200px) {
+.container {
+    width: 100%;
+}
+}
+
+@media (min-width: 992px) {
+.container {
+    width: 100%;
+}
+}
+
+@media (min-width: 768px) {
+.container {
+    width: 100%;
+}
+}

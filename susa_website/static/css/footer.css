@@ -1,0 +1,79 @@
+/* Styling for the footer
+File: "/assets/framework/footer.php"
+*/
+
+/* When trying to debug overlap between the footer and other elements, try setting all positions as relative, it should be fixed with a little tweaking! */
+
+/* Add 6em padding to margin bottom of every last container before the footer */
+
+.footer-container {
+    width: 100%;
+
+}
+
+#top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: -35px;
+}
+
+.column{
+    display: flex;
+    float:left;
+    flex: 1;
+    justify-content: center;
+    min-width:300px;
+}
+
+address {
+    font-style: normal;
+}
+
+#bottom {
+    font-size: .75em;
+    color: #888888;
+    text-align: center;
+    width: 50%;
+    left: 25%;
+}
+
+#footer ul{
+    margin:0;
+    list-style: none;
+}
+
+#footer a {
+    margin: 0;
+}
+
+
+#footer li:not(:last-child) {
+    margin-bottom: .5em;
+}
+
+.admin-ind-cont {
+    margin-bottom: 1.5em !important;
+}
+
+
+.footer-container hr{
+    border: 1px solid black;
+    background-color: black;
+    color: black;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: calc(100% - 4em);
+        text-align: left;
+        justify-content: flex-start;
+        margin-left: 2em;
+    }
+    #bottom {
+        width: calc(100% - 4em);
+        margin-left: 2em;
+        left: 0;
+        text-align: left;
+    }
+}

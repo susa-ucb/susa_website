@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang = "en-US">
+<head>
+    <!--
+        Created by Edward Chang - 2020 Spring
+    -->
+    <title> SUSA | Login </title>
+    <meta name = "description" content = "SUSA Admin Panel Login">
+    <meta charset = "UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "/static/css/general.css">
+    <link rel = "stylesheet" type = "text/css" href = "/static/css/nav.css">
+    <link rel = "stylesheet" type = "text/css" href = "/static/css/admin/login.css">
+    <link rel = "icon" href = "/static/images/susa-icon-196x196.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+</head>
+<body>
+    <nav class = "nav-bar" id = "bar">
+        <a class="logo" title="Return to the main page" href="/">
+            <img id="logo-before" src="/static/images/susa_big_blue_alt.png" alt="SUSA Logo" style="height: 4em;">
+            <img id="logo-after" src="/static/images/susa_big_blue_gold_alt.png" alt="SUSA Logo with area under normal curve highlighted" style="height: 4em;">
+        </a>
+    </nav>
+    <div class="notice-container">
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+             <p class="notice">{{ message }}</p>
+          {% endfor %}
+       {% endif %}
+    {% endwith %}
+    </div>
+    <div class="login-container">
+      <div id="login">
+              <h2>Login</h2>
+              <form action="login" method="POST">
+                  <label for="username">Username:</label>
+                  <input id="username" placeholder="oskibear" type="text" name="username">
+                  <label for="password">Password:</label>
+                  <input id="password" placeholder="••••••••" type="password" name="password">
+                  {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
+                  <button type="submit" name="submit">Login</button>
+              </form>
+        </div>
+    </div>
+</body>
+</html>

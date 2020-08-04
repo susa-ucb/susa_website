@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} SUSA | Events {% endblock %}
+
+{% block content %}
+<link rel = "stylesheet" type = "text/css" href = "/static/css/events.css">
+<!-- Fullcalendar to display google calendar schedule -->
+<link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
+<link href='/static/fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+<script src='/static/fullcalendar/core/main.js'></script>
+<script src='/static/fullcalendar/google-calendar/main.js'></script>
+<script src='/static/fullcalendar/daygrid/main.js'></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        height: 'parent',
+        plugins: [ 'dayGrid', 'googleCalendar' ],
+        defaultView: 'dayGridMonth',
+        googleCalendarApiKey: '{{ key }}',
+
+        events: 'j36poa6lelcsfpgcadgqk4djbo@group.calendar.google.com',
+        eventClick: function(info) {
+            info.jsEvent.preventDefault();
+            if (info.event.url) {
+                window.open(info.event.url);
+            }
+        }
+
+    });
+
+    calendar.render();
+    });
+
+</script>
+<div class = "calendar-container">
+    <span id='calendar'></span>
+</div>
+<div class = "info-container">
+        <div id = "info">
+            {{ Markup(about_events) }}
+            <h1>Upcoming Events</h1>
+            <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href= "https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">calendar</a>.</p>
+            <ol class='event-list'>
+                {% for event in upcoming %}
+                <li>
+                    {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
+                </li>
+                {% endfor %}
+            </ol>
+            <h1>Past Events</h1>
+            <p> Here is our ten most recent events and presentation material that came up during the event (most materials require you to sign into your UC Berkeley email) .</p>
+            <ol class='event-list'>
+                {% for event in past %}
+                <li>
+                    {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+{% endblock %}

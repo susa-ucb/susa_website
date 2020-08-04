@@ -1,0 +1,97 @@
+/* Override bootstrap css in admin panel to match general nav bar */
+.navbar {
+    width: calc(100%);
+    position: fixed;
+    color: white;
+    background-color: rgb(238, 238, 238);
+    z-index: 2;
+    border-radius: 0;
+    min-height: 72.8px;
+}
+
+.logo {
+    position: relative;
+    margin: 0;
+    margin-left: 20vw;
+    padding:0;
+    display: inline-block;
+    z-index: 3;
+    margin-top: .3em;
+    height: calc(4em + 4px);
+}
+
+
+.logo:hover #logo-after {
+    z-index: 3;
+    opacity: 1;
+    transition: .5s;
+
+}
+
+.logo:hover #logo-before{
+    opacity: 0;
+    transition: .5s;
+}
+
+.navbar-default .navbar-nav>li>a {
+    padding-top: 1.7em;
+    padding-bottom: 3.15em;
+    max-height: 4.3em;
+}
+
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #003262;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+    color: #FDB515;
+    transition: .5s;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #003262;
+}
+
+.navbar-default .navbar-right>li>a {
+    color: red;
+}
+
+.navbar-default .navbar-right>li>a:hover {
+    background-color: #003262;
+    color: red;
+}
+
+@media (min-width: 768px) {
+.navbar-nav {
+    position: absolute;
+    right: 20%;
+    margin: 0;
+}
+
+.navbar-right {
+    position: absolute;
+    right: 0;
+    color: red;
+}
+
+
+}
+
+
+@media (min-width: 768px) {
+.navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+
+.navbar-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+}

@@ -1,0 +1,64 @@
+/* Styling for basic elements in every page
+Already included in the header declarations, so no need to reference to this file when making a page
+*/
+
+* {
+    position: relative
+}
+
+html {
+    min-width: 500px;
+    scroll-behavior: smooth;
+    height: auto;
+    margin: 0;
+}
+
+body {
+    height: auto;
+    margin : 0;
+    color: black;
+    font-family: 'Raleway';
+}
+
+a {
+    text-decoration: none;
+    color: #3B7EA1;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #ED4E33;
+}
+
+.admin-ind {
+    color: black !important;
+    padding: .5em !important;
+    border-radius: .4em !important;
+    background-color: red !important;
+}
+
+.indented{
+    margin-left: 50px;
+}
+
+.divide {
+    position: absolute;
+    height: 1em;
+    background: linear-gradient(45deg, #003262, #FDB515);
+}
+
+/*scrollbar stylings*/
+
+::-webkit-scrollbar{
+background: #fff;
+}
+::-webkit-scrollbar-track {
+background: none;
+background-color: #E0E0E0;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(000, 000, 000, 0.7);
+}
+::-webkit-scrollbar-thumb:hover {
+background: #222;
+}

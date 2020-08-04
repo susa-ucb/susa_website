@@ -1,0 +1,48 @@
+/** css to override bootstrap elements
+this also corrects the page positions due to the navbar changes
+*/
+
+.nav-tabs, .breadcrumb {
+    position: relative;
+    width: 80%;
+    margin-top: 8em;
+    left: 50%;
+    margin-left: -40%;
+}
+
+.table-responsive, .btn-toolbar, #filter_form {
+    position: relative;
+    width: 80%;
+    left: 50%;
+    margin-left: -40%;
+}
+
+.table-responsive {
+    min-width: 1150px !important;
+    overflow: visible;
+}
+
+.table {
+    overflow: auto !important;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #FDB515;
+}
+
+a {
+    color: #FDB515;
+}
+
+.calendar-date {
+    color: black;
+}
+
+.navbar-left>.form-group>.form-control {
+    height: 2em;
+}
+
+.popover {
+    z-index: 100;
+    overflow: visible;
+}

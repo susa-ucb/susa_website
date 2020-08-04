@@ -1,0 +1,74 @@
+.logo {
+    margin-left: calc(20%);
+}
+
+.notice-container {
+    width: 100%;
+    text-align: center;
+    padding-top: 8em;
+}
+
+.notice {
+    text-align: center;
+    color: red;
+    font-size: 1.5em;
+    padding-bottom: 2em;
+}
+
+.login-container {
+    width: 100%;
+}
+
+#nav-links {
+    display: none;
+}
+
+.nav-bar-toggle {
+    display: none;
+}
+
+footer {
+    display: none;
+}
+
+#login {
+    width: 450px;
+    margin-left: calc(50% - 225px);
+}
+
+input, textarea {
+    font-size: 1.25em;
+}
+
+input {
+    margin-bottom: .5em;
+}
+
+input, button {
+    width: calc(450px - 1em);
+    border-radius: .25em;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+button {
+    font-family: 'Raleway';
+    margin-left: .5em;
+    margin-top: 1em;
+    width: 5em;
+}
+
+button:focus, input:focus {
+    outline:none;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  width: 275px;
+  line-height: 26px;
+}
+
+.error {
+    color: red;
+}
