@@ -18,7 +18,7 @@ from wtforms.validators import DataRequired, NumberRange
 import os.path as op
 
 from . import secrets, app, db
-from .schema import Events, Team, Resources, Contents
+from .schema import Events, Team, Resources, ResourcesMapping, Contents
 
 # Flask-login init
 login_manager = LoginManager()
@@ -94,6 +94,9 @@ class AdminView(ModelView):
     def inaccessible_callback(self,name, **kwargs):
         abort(403)
 
+class OpStringField(StringField):
+    pass
+
 class StringField(StringField):
     validators = [DataRequired()]
 
@@ -107,30 +110,39 @@ class DateField(DateField):
     validators = [DataRequired()]
 
 class ResourcesForm(FlaskForm):
+    category = StringField("Category")
+    label = StringField("Label for the link")
+    link = StringField("Link")
+    position = PositionField("Position within Category")
+
+class ResourcesView(AdminView):
+    column_filters = ['category']
+    column_searchable_list = ['label']
+    column_editable_list = ['link', 'position', 'label']
+    create_form = edit_form = ResourcesForm
+
+class ResourcesMappingForm(FlaskForm):
+    category = StringField("Category")
+    group_position = PositionField("Category position within Type")
     type = SelectField('Type',
     choices=[
     (1, 'Courses'),
     (2, 'Useful Links'),
     (3, 'Other Links'),
     (4, 'Removed')
-    ])
-    category = StringField("Category")
-    label = StringField("Label for the link")
-    link = StringField("Link")
-    group_position = PositionField("Group position within Category")
-    position = PositionField("Position within Group")
+    ], coerce=int)
 
-class ResourcesView(AdminView):
-    column_searchable_list = ['label']
+class ResourcesMappingView(AdminView):
     column_filters = ['type', 'category']
-    column_editable_list = ['link', 'group_position', 'position', 'label']
-    create_form = edit_form = ResourcesForm
+    column_editable_list = ['group_position']
+    create_form = edit_form = ResourcesMappingForm
 
 class EventsForm(FlaskForm):
     event_date = DateField("Event Date")
     event_name = StringField("Event Name")
     fb_link = StringField("Facebook Link", default="TBA")
     location = StringField("Location", default="TBA")
+    resources = OpStringField("Resources")
 
 class EventsView(AdminView):
     column_searchable_list = ['event_date', 'event_name', 'location']
@@ -183,7 +195,8 @@ class Files(FileAdmin):
 path = op.join(op.dirname(__file__), 'static')
 
 admin = Admin(app, name='SUSA', template_mode='bootstrap3', index_view=AdminIndex())
-admin.add_view(ResourcesView(Resources, db.session))
+admin.add_view(ResourcesView(Resources, db.session, category="Resources", name="Links"))
+admin.add_view(ResourcesMappingView(ResourcesMapping, db.session, category="Resources"))
 admin.add_view(EventsView(Events, db.session))
 admin.add_view(TeamView(Team, db.session))
 admin.add_view(ContentsView(Contents, db.session))

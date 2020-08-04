@@ -57,6 +57,15 @@
                 {% for event in past %}
                 <li>
                     {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
+                    {% if event['resources'] %}
+                    <ul>
+                        {% for resource in conv_resource_list(event['resources']) %}
+                        <li>
+                            <a href="{{ resource.link }}"> {{ resource.label }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ol>

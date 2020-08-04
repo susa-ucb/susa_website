@@ -36,8 +36,21 @@ def get_groupings(table):
         curr_group.link_list.append(Link(row['label'], row['link']))
     return groups
 
+# Parse a list to a better format
+def conv_list(list_string, type):
+    if not list_string:
+        return None
+    return [type(pair[0], pair[1]) for pair in [linked.split(': ') for linked in list_string.split(', ')]]
+
+
 # Parse footer_email string to a better format
 Email = namedtuple('Email', 'role email')
 
 def conv_email_list(list_string):
-    return [Email(pair[0], pair[1]) for pair in [linked.split(': ') for linked in list_string.split(', ')]]
+    return conv_list(list_string, Email)
+
+# Parse event resources to a better format
+Resource = namedtuple('Resource', 'label link')
+
+def conv_resource_list(list_string):
+    return conv_list(list_string, Resource)

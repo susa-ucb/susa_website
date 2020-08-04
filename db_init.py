@@ -2,7 +2,7 @@ if __name__ == '__main__':
     try:
         from susa_website import db
 
-        option = input("Drop all tables? (Y/N)\nIf Y, then all databases will be overwritten.\nIf N, then databases may corrupt.\n")
+        option = input("Drop all tables? (Y/N)\nIf Y, then the databases will be overwritten with new tables.\nIf N, then something could go wrong.\n")
 
         if option == 'Y':
             db.drop_all()

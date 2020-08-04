@@ -116,9 +116,9 @@
                 <ul>
                     <li><h2> Email </h2></li>
                     <li class = "foot-link"><a href = "mailto:berkeley.susa@gmail.com" title="Send an email to our team!">Our Team</a></li>
-                    {% for email in footer_emails %}
+                    {% if footer_emails %}{% for email in footer_emails %}
                     <li class = "foot-link"><a href = "mailto:{{email.email}}" title="Send an email to our {{email.role}}!">{{email.role}}</a></li>
-                    {% endfor %}
+                    {% endfor %}{% endif %}
                 </ul>
             </address>
             <div class = "column" id = "right">

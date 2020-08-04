@@ -39,7 +39,7 @@ def teardown_request(exception):
     if db is not None:
         db.close()
 
-def retrieve_db(query, unique=False):
+def query_db(query, unique=False):
     cur = g.db.execute(query)
     rv = cur.fetchall()
     cur.close()

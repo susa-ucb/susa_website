@@ -8,6 +8,7 @@ class Events(db.Model):
     event_name = db.Column(db.String(80), nullable=False)
     fb_link = db.Column(db.String(120), nullable=False, default='TBA')
     location = db.Column(db.String(120), nullable=False, default='TBA')
+    resources = db.Column(db.String(1000), nullable=True)
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -25,12 +26,16 @@ class Team(db.Model):
 
 class Resources(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    type = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(80), nullable=False)
     label = db.Column(db.String(80), nullable=False)
     link = db.Column(db.String(100), nullable=False)
     position = db.Column(db.Integer, nullable=False)
+
+class ResourcesMapping(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    category = db.Column(db.String(80), nullable=False)
     group_position = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.Integer, nullable=False)
 
 class Contents(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
