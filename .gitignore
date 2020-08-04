@@ -1,0 +1,9 @@
+*__pycache__/
+*.pyc
+config.yaml
+susa_website/static/portraits/*
+susa_website/static/resources/*
+*.db
+venv/
+.DS_Store
+desktop.ini
