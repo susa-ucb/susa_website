@@ -13,34 +13,12 @@
         <h1> Welcome back Master! </h1>
         <p> uwu </p>
         <p> This is the admin panel for the Statistics Undergraduate Student Association at the University of California, Berkeley. </p>
-        <p> There isn't much to say about creating new entries in our database, but there are several conventions that need to be followed when entering data for resources. </p>
-        <h3> Resources </h3>
-        <ul>
-            <li>
-                The <code>type</code> field denotes the type that you want the new entry to be displayed at.
-                <ul>
-                    <li> <code>1</code> : goes under courses </li>
-                    <li> <code>2</code> : goes under useful links </li>
-                    <li> <code>3</code> : goes under other links </li>
-                </ul>
-            </li>
-
-            <li>The <code>position</code> field denote the order that you want the new entry to be displayed under (within a group&mdash;explained next).</li>
-
-            <li>The <code>category</code> field denotes what category that you want the new entry to be displayed under&mdash;this is practically the same as group_position (but this doesn't give position). I created the two fields for coding/storage flexibility.</li>
-
-            <li>The <code>label</code> field denotes what you want the link text to display on the page</li>
-
-            <li>
-                The <code>link</code> field denotes what you want the link to be.
-                <ul>
-                    <li>If you have a link to an outside website, make sure to give the entire thing (<code>http.......</code>). </li>
-                    <li>If you're linking to a resource that you upload, you only have to give the relative file path within <code>/static/resources/</code>.</li>
-                </ul>
-            </li>
-
-            <li>The <code>group_position</code> field denotes what order that you want group that the entry belongs to to be in within its <code>type</code>.</li>
-
+        <p> There isn't much to say about creating new entries in our database, but there are several conventions that need to be followed when entering some things. </p>
+        <p>This site is very intuitive to alter and you just need some HTML knowledge to do everything needed (just some common tags like <code>h1</code>, <code>p</code>, <code>ol</code>, etc..).</p>
+        <p><code>position</code> fields are the way that content on the pages is sorted, for example, an entry in the <code>team</code> table with position 1 will tell us that the person is the first to appear on the <code>/team</code> page.</p>
+        <p>To make things easier, I made two tables to represent the resources, one are the links themselves, and the other is the mapping of <code>category</code> to a <code>group_position</code> and <code>type</code> (<code>courses</code>,<code>useful_links</code>,<code>other_links</code>, or <code>removed</code>)
+        <p>I've predefined the areas on the website that can be altered with the <code>contents</code> table, and it's pretty self intuitive to do things</p>
+        <p>Make sure to follow the format of some fields as specified when creating an entry!!</p>
         </ul>
     </div>
 </div>

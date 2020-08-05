@@ -112,7 +112,7 @@ class DateField(DateField):
 class ResourcesForm(FlaskForm):
     category = StringField("Category")
     label = StringField("Label for the link")
-    link = StringField("Link")
+    link = StringField("Link", description="If adding a file hosted by us, give the relative directory to /static/resources/\nOtherwise, use a http... link")
     position = PositionField("Position within Category")
 
 class ResourcesView(AdminView):
@@ -142,7 +142,7 @@ class EventsForm(FlaskForm):
     event_name = StringField("Event Name")
     fb_link = StringField("Facebook Link", default="TBA")
     location = StringField("Location", default="TBA")
-    resources = OpStringField("Resources")
+    resources = OpStringField("Resources", description="Format is Resource 1 label: link, Resource 2 label: link, ....")
 
 class EventsView(AdminView):
     column_searchable_list = ['event_date', 'event_name', 'location']
