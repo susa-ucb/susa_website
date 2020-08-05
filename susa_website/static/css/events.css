@@ -26,7 +26,6 @@ File: "/events/index.php"
 
 .event-list {
     list-style:none;
-    margin-left: -3em;
     padding: 0;
 }
 
@@ -36,5 +35,5 @@ File: "/events/index.php"
 
 .event-list li {
     margin-top: 1em;
-    margin-left: 6em;
+    margin-left: 3em;
 }
