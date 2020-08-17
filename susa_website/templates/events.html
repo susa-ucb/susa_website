@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} SUSA | Events {% endblock %}
+{% block title %} Events | SUSA {% endblock %}
 
 {% block content %}
 <link rel = "stylesheet" type = "text/css" href = "/static/css/events.css">
@@ -17,9 +17,12 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+            center: 'dayGridMonth, dayGridWeek'
+        },
         height: 'parent',
         plugins: [ 'dayGrid', 'googleCalendar' ],
-        defaultView: 'dayGridMonth',
+        initialView: 'dayGridMonth',
         googleCalendarApiKey: '{{ key }}',
 
         events: 'j36poa6lelcsfpgcadgqk4djbo@group.calendar.google.com',
