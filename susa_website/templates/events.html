@@ -50,11 +50,11 @@
             <ol class='event-list'>
                 {% for event in upcoming %}
                 <li>
-                    {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
-                    {% if event['description'] %}
+                    {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    {% if event.description %}
                     <ul>
                         <li>
-                            {{ event['description'] }}
+                            {{ event.description }}
                         </li>
                     </ul>
                     {% endif %}
@@ -66,15 +66,15 @@
             <ol class='event-list'>
                 {% for event in past %}
                 <li>
-                    {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
-                    {% if event['resources'] %}
+                    {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    {% if event.resources %}
                     <ul>
-                        {% if event['description'] %}
+                        {% if event.description %}
                         <li>
-                            {{ event['description'] }}
+                            {{ event.description }}
                         </li>
                         {% endif %}
-                        {% for resource in conv_resource_list(event['resources']) %}
+                        {% for resource in conv_resource_list(event.resources) %}
                         <li>
                             <a href="{{ resource.link }}"> {{ resource.label }}</a>
                         </li>
