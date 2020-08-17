@@ -2,7 +2,6 @@
 File: "/templates/"
 */
 .nav-bar {
-    display: flex;
     position: fixed;
     color: white;
     width: 100%;
@@ -80,12 +79,14 @@ File: "/templates/"
     right: 15%;
     top: 50%;
     margin-top: -.75em;
+    top: 2em;
+    z-index: 6;
 }
 
 .logo-curve {
     fill: none;
     stroke: #003262;
-    stroke-width: 20;
+    stroke-width: 30;
     stroke-linejoin: round;
     stroke-miterlimit: 10;
     stroke-dasharray: 180%;
@@ -105,10 +106,7 @@ svg:hover .logo-curve{
         display: none;
     }
     .nav-bar-toggle {
-        position: absolute;
         display: inline-block;
-        top: 2em;
-        z-index: 6;
     }
 }
 
@@ -122,7 +120,9 @@ svg:hover .logo-curve{
         text-align: right;
     }
 
-    .nav-bar.responsive {position: fixed;}
+    .nav-bar.responsive {
+        position: fixed;
+    }
 
     .nav-bar.responsive #nav-links li {
         display: list-item;
