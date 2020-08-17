@@ -51,6 +51,13 @@
                 {% for event in upcoming %}
                 <li>
                     {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
+                    {% if event['description'] %}
+                    <ul>
+                        <li>
+                            {{ event['description'] }}
+                        </li>
+                    </ul>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ol>
@@ -62,6 +69,11 @@
                     {{ format_date(event['event_date']) }}: {{ event['event_name'] }}
                     {% if event['resources'] %}
                     <ul>
+                        {% if event['description'] %}
+                        <li>
+                            {{ event['description'] }}
+                        </li>
+                        {% endif %}
                         {% for resource in conv_resource_list(event['resources']) %}
                         <li>
                             <a href="{{ resource.link }}"> {{ resource.label }}</a>

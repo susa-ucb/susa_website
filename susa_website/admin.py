@@ -140,13 +140,14 @@ class ResourcesMappingView(AdminView):
 class EventsForm(FlaskForm):
     event_date = DateField("Event Date")
     event_name = StringField("Event Name")
-    fb_link = StringField("Facebook Link", default="TBA")
-    location = StringField("Location", default="TBA")
+    description = OpStringField("Event Description")
+    fb_link = OpStringField("Facebook Link")
+    location = OpStringField("Location")
     resources = OpStringField("Resources", description="Format is Resource 1 label: link, Resource 2 label: link, ....")
 
 class EventsView(AdminView):
     column_searchable_list = ['event_date', 'event_name', 'location']
-    column_editable_list = ['event_date', 'event_name', 'fb_link', 'location']
+    column_editable_list = ['event_date', 'event_name', 'fb_link', 'location', 'description']
     create_form = edit_form = EventsForm
 
 class TeamForm(FlaskForm):

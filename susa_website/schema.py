@@ -6,8 +6,9 @@ class Events(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_date = db.Column(db.Date, nullable=False)
     event_name = db.Column(db.String(80), nullable=False)
-    fb_link = db.Column(db.String(120), nullable=False, default='TBA')
-    location = db.Column(db.String(120), nullable=False, default='TBA')
+    description = db.Column(db.String(1000), nullable=True)
+    fb_link = db.Column(db.String(120), nullable=True)
+    location = db.Column(db.String(120), nullable=True)
     resources = db.Column(db.String(1000), nullable=True)
 
 class Team(db.Model):
@@ -21,7 +22,7 @@ class Team(db.Model):
     year = db.Column(db.String(80), nullable=False)
     origin = db.Column(db.String(80), nullable=False)
     classes = db.Column(db.String(500), nullable=False)
-    past_classes = db.Column(db.String(500), nullable=False)
+    past_classes = db.Column(db.String(500), nullable=True)
     semester = db.Column(db.String(80), nullable=False)
 
 class Resources(db.Model):
