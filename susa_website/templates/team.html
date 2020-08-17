@@ -34,6 +34,9 @@
                                 <li>Year: {{ member.year }}</li>
                                 <li>From: {{ member.origin }}</li>
                                 <li>Current Classes: {{ member.classes }}</li>
+                                {% if member.past_classes %}
+                                <li>Taken Classes: {{ member.past_classes }}</li>
+                                {% endif %}
                             </ol>
                         </div>
                     </div>
