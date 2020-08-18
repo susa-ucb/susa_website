@@ -27,15 +27,22 @@ File: "/events/index.php"
 .event-list {
     list-style:none;
     padding: 0;
+    line-height: 1.5em;
 }
 
-.event-list li:not(:last-child) {
+.event-item:not(:last-child) {
     margin-bottom: 1em;
 }
 
-.event-list li {
+.event-item {
     margin-top: 1em;
     margin-left: 3em;
+}
+
+.details {
+    border-left: grey solid 4px;
+    margin-left: 1em;
+    padding: 1em 0 1em 1.5em;
 }
 
 .fc-content {
