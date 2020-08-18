@@ -5,22 +5,39 @@
 {% block content %}
 <link rel = "stylesheet" type = "text/css" href = "/static/css/resources.css">
 <div class = "text-container">
+    <script>
+        function pand(id) {
+            var group = document.getElementById("group-"+id);
+            var button = document.getElementById("button-"+id);
+            if (group.className === "link-container") {
+                group.className += " expanded";
+                button.innerHTML = '<i class="fa fa-minus-square" aria-hidden="true"></i>';
+            } else {
+                group.className = "link-container";
+                button.innerHTML = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+            }
+        }
+    </script>
     <div id = "text">
         {% for i in range(3) %}
-        <h1>{{ ['Useful Links', 'Courses', 'Other Links'][i] }}</h1>
+        <h2>{{ ['Useful Links', 'Courses', 'Other Links'][i] }}</h2>
         <ul>
             {% for group in [useful_links, courses, other_links][i] %}
-            <li><h2>{{ group.category }}</h2>
-                <ul class="link-list">
-                    {% for link in group.link_list %}
-                    <li>
-                        <a href="{{
-                            link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
-                            {{ link.label }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
+            <li><h3 onclick="pand('{{ group.category }}')">{{ group.category }}
+                <span id="button-{{ group.category }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+            </h3>
+                <div class="link-container" id="group-{{ group.category }}">
+                    <ul class="link-list">
+                        {% for link in group.link_list %}
+                        <li class="resource">
+                            <a href="{{
+                                link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
+                                {{ link.label }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </li>
             {% endfor %}
         </ul>

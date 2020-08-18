@@ -15,10 +15,45 @@ File: "/resources/index.php"
     padding-bottom: 9em;
 }
 
-.link-list li:not(:last-child) {
-    margin-bottom: 1em;
+.resource:not(:last-child) {
+    margin-bottom: .5em;
 }
 
-.link-list li {
-    margin-top: 1em;
+.link-container {
+    overflow: hidden;
+    max-height: 0;
+    margin-left: .35em;
+    border-left: #EEEEEE solid 4px;
+    padding: 0;
+    transition: max-height .5s ease-out, padding .5s ease-out;
+}
+
+.link-container>* {
+    display: none;
+}
+
+.expanded.link-container>* {
+    display:block;
+}
+
+.expanded {
+    max-height: 15em;
+    padding: 1em 0 1em 0;
+}
+
+.pand-button {
+    border: none;
+    padding: 0 !important;
+    background: none;
+    font-size: 1em !important;
+    margin-left: 1em;
+}
+
+
+.pand-button:focus {
+    outline: 0;
+}
+
+h3 {
+    margin-bottom: .25em;
 }
