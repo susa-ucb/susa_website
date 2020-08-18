@@ -6,55 +6,25 @@
 <link rel = "stylesheet" type = "text/css" href = "/static/css/resources.css">
 <div class = "text-container">
     <div id = "text">
-        <h1>Useful Links</h1>
-            <ul>
-                {% for group in useful_links %}
-                <li><h2>{{ group.category }}</h2>
-                    <ul class="link-list">
-                        {% for link in group.link_list %}
-                        <li>
-                            <a href="{{
-                                link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
-                                {{ link.label }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ul>
-        <h1> Courses</h1>
-            <ul>
-                {% for group in courses %}
-                <li><h2>{{ group.category }}</h2>
-                    <ul class="link-list">
-                        {% for link in group.link_list %}
-                        <li>
-                            <a href="{{ link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
-                                {{ link.label }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ul>
-        <h1> Other Links </h1>
-            <ul>
-                {% for group in other_links %}
-                <li><h2>{{ group.category }}</h2>
-                    <ul class="link-list">
-                        {% for link in group.link_list %}
-                        <li>
-                            <a href="{{ link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
-                                {{ link.label }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ul>
+        {% for i in range(3) %}
+        <h1>{{ ['Useful Links', 'Courses', 'Other Links'][i] }}</h1>
+        <ul>
+            {% for group in [useful_links, courses, other_links][i] %}
+            <li><h2>{{ group.category }}</h2>
+                <ul class="link-list">
+                    {% for link in group.link_list %}
+                    <li>
+                        <a href="{{
+                            link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
+                            {{ link.label }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
