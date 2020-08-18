@@ -7,6 +7,7 @@ File: "/templates/"
     width: 100%;
     background-color: rgba(238,238,238, .75);
     z-index: 10;
+    min-height: 4.25em;
 }
 
 #nav-links {
@@ -103,40 +104,41 @@ svg:hover .logo-curve{
 /* Media queries for responsive navbar*/
 @media screen and (max-width: 1250px) {
     #nav-links {
-        display: none;
-    }
-    .nav-bar-toggle {
-        display: inline-block;
-    }
-}
-
-@media screen and (max-width: 1250px) {
-    .nav-bar.responsive #nav-links {
+        max-height: 0;
+        transition: max-height .5s ease-out;
+        overflow: hidden;
+        text-align: right;
         float: none;
-        display: block;
         position: relative;
         width: 100%;
         margin-bottom: 0;
-        text-align: right;
     }
 
-    .nav-bar.responsive {
-        position: fixed;
-    }
-
-    .nav-bar.responsive #nav-links li {
+    #nav-links li {
         display: list-item;
         margin: 0;
         padding-top: 1em;
-    }
-
-    .nav-bar.responsive #nav-links li:last-child {
-        padding-bottom: 1em;
     }
 
     #nav-links li>a.admin-ind {
         position: relative;
         right: 0;
         width: auto;
+    }
+
+    .nav-bar-toggle {
+        display: inline-block;
+        margin-bottom: 1em;
+    }
+
+    #nav-links li:last-child {
+        padding-bottom: 3em;
+    }
+
+    .nav-bar.responsive {
+        position: fixed;
+    }
+    .nav-bar.responsive #nav-links {
+        max-height: 10em;
     }
 }
