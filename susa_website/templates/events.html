@@ -43,65 +43,80 @@
     <span id='calendar'></span>
 </div>
 <div class = "info-container">
-        <div id = "info">
-            {{ Markup(about_events) }}
-            <h1>Upcoming Events</h1>
-            <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href= "https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">calendar</a>.</p>
-            <ol class='event-list'>
-                {% for event in upcoming %}
-                <li class='event-item'>
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ format_date(event.event_date) }}: {{ event.event_name }}
-                    <div class = "details" id="details-{{ event.id }}">
-                    {% if event.description %}
-                    <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
-                    {% endif %}
-                    {% if event.location %}
-                    <br>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
-                    {% endif %}
-                    {% if event.fb_link %}
-                    <br>
-                    <a href="{{ event.fb_link }}" title="Go to the Facebook event">
-                        <i class="fab fa-facebook-square"></i> Facebook Link
-                    </a>
-                    {% endif %}
+    <script>
+        function pand(id) {
+            var details = document.getElementById("details-"+id);
+            var button = document.getElementById("button-"+id);
+            if (details.className === "details") {
+                details.className += " expanded";
+                button.innerHTML = '<i class="fa fa-minus-square" aria-hidden="true"></i>';
+            } else {
+                details.className = "details";
+                button.innerHTML = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+            }
+        }
+    </script>
+    <div id = "info">
+        {{ Markup(about_events) }}
+        <h1>Upcoming Events</h1>
+        <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href= "https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">calendar</a>.</p>
+        <ol class='event-list'>
+            {% for event in upcoming %}
+            <li class='event-item'>
+                <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                <button type="button" onclick="pand('{{ event.id }}')" id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+                <div class = "details" id="details-{{ event.id }}">
+                {% if event.description %}
+                <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
+                {% endif %}
+                {% if event.location %}
+                <br>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
+                {% endif %}
+                {% if event.fb_link %}
+                <br>
+                <a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                    <i class="fab fa-facebook-square"></i> Facebook Link
+                </a>
+                {% endif %}
+            </div>
+            </li>
+            {% endfor %}
+        </ol>
+        <h1>Past Events</h1>
+        <p> Here is our ten most recent events and presentation material that came up during the event (most materials require you to sign into your UC Berkeley email) .</p>
+        <ol class="event-list">
+            {% for event in past %}
+            <li class='event-item' id="event-{{ event.id }}">
+                <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                {% if event.description %}
+                <button type="button" onclick="pand('{{ event.id }}')" id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+                <div class = "details" id="details-{{ event.id }}">
+                <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
+                {% endif %}
+                {% if event.location %}
+                <br>
+                <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
+                {% endif %}
+                {% if event.fb_link %}
+                <br>
+                <a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                    <i class="fab fa-facebook-square"></i> Facebook Link
+                </a>
+                {% endif %}
+                {% if event.resources %}
+                <ul>
+                    {% for resource in conv_resource_list(event.resources) %}
+                    <li class='resource-item'>
+                        <a href="{{ resource.link }}"> {{ resource.label }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 </div>
-                </li>
-                {% endfor %}
-            </ol>
-            <h1>Past Events</h1>
-            <p> Here is our ten most recent events and presentation material that came up during the event (most materials require you to sign into your UC Berkeley email) .</p>
-            <ol class="event-list">
-                {% for event in past %}
-                <li class='event-item' id="event-{{ event.id }}">
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ format_date(event.event_date) }}: {{ event.event_name }}
-                    {% if event.description %}
-                    <div class = "details" id="details-{{ event.id }}">
-                    <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
-                    {% endif %}
-                    {% if event.location %}
-                    <br>
-                    <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
-                    {% endif %}
-                    {% if event.fb_link %}
-                    <br>
-                    <a href="{{ event.fb_link }}" title="Go to the Facebook event">
-                        <i class="fab fa-facebook-square"></i> Facebook Link
-                    </a>
-                    {% endif %}
-                    {% if event.resources %}
-                    <ul>
-                        {% for resource in conv_resource_list(event.resources) %}
-                        <li class='resource-item'>
-                            <a href="{{ resource.link }}"> {{ resource.label }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    </div>
-                </li>
-                {% endfor %}
-            </ol>
-        </div>
+            </li>
+            {% endfor %}
+        </ol>
     </div>
+</div>
 {% endblock %}

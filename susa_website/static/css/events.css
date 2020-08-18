@@ -39,12 +39,32 @@ File: "/events/index.php"
     margin-left: 3em;
 }
 
+.fc-content {
+    white-space: normal !important;
+}
+
 .details {
+    max-height: 0;
+    overflow: hidden;
     border-left: grey solid 4px;
-    margin-left: 1em;
+    margin-left: .35em;
+    padding: 0 0 0 1.5em;
+    transition: max-height .5s ease-out, padding .5s ease-out;
+}
+
+.expanded {
+    max-height: 10em;
     padding: 1em 0 1em 1.5em;
 }
 
-.fc-content {
-    white-space: normal !important;
+.pand-button {
+    border: none;
+    padding: 0 !important;
+    background: none;
+    font-size: 1em !important;
+    margin-left: 1em;
+}
+
+.pand-button:focus {
+    outline: 0;
 }
