@@ -46,10 +46,18 @@ File: "/events/index.php"
 .details {
     max-height: 0;
     overflow: hidden;
-    border-left: grey solid 4px;
+    border-left: #EEEEEE solid 4px;
     margin-left: .35em;
     padding: 0 0 0 0em;
     transition: max-height .5s ease-out, padding .5s ease-out;
+}
+
+.details>* {
+    display: none;
+}
+
+.expanded.details>* {
+    display:block;
 }
 
 .expanded {
