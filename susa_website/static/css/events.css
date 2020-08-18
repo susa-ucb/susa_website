@@ -48,13 +48,13 @@ File: "/events/index.php"
     overflow: hidden;
     border-left: grey solid 4px;
     margin-left: .35em;
-    padding: 0 0 0 1.5em;
+    padding: 0 0 0 0em;
     transition: max-height .5s ease-out, padding .5s ease-out;
 }
 
 .expanded {
     max-height: 10em;
-    padding: 1em 0 1em 1.5em;
+    padding: 1em 0 1em 0em;
 }
 
 .pand-button {

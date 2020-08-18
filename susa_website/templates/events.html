@@ -63,22 +63,24 @@
         <ol class='event-list'>
             {% for event in upcoming %}
             <li class='event-item'>
-                <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
-                <button type="button" onclick="pand('{{ event.id }}')" id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+                <span class='item-listing' onclick="pand('{{ event.id }}')">
+                    <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
+                </span>
                 <div class = "details" id="details-{{ event.id }}">
-                {% if event.description %}
-                <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
-                {% endif %}
-                {% if event.location %}
-                <br>
-                <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
-                {% endif %}
-                {% if event.fb_link %}
-                <br>
-                <a href="{{ event.fb_link }}" title="Go to the Facebook event">
-                    <i class="fab fa-facebook-square"></i> Facebook Link
-                </a>
-                {% endif %}
+                    <ul style="list-style: none;">
+                        {% if event.description %}
+                        <li><i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        {% endif %}
+                        {% if event.location %}
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        {% endif %}
+                        {% if event.fb_link %}
+                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                            <i class="fab fa-facebook-square"></i> Facebook Link
+                        </a></li>
+                        {% endif %}
+                    </ul>
             </div>
             </li>
             {% endfor %}
@@ -88,31 +90,33 @@
         <ol class="event-list">
             {% for event in past %}
             <li class='event-item' id="event-{{ event.id }}">
-                <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
-                {% if event.description %}
-                <button type="button" onclick="pand('{{ event.id }}')" id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </button>
+                <span class='item-listing' onclick="pand('{{ event.id }}')">
+                    <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
+                </span>
                 <div class = "details" id="details-{{ event.id }}">
-                <i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}
-                {% endif %}
-                {% if event.location %}
-                <br>
-                <i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}
-                {% endif %}
-                {% if event.fb_link %}
-                <br>
-                <a href="{{ event.fb_link }}" title="Go to the Facebook event">
-                    <i class="fab fa-facebook-square"></i> Facebook Link
-                </a>
-                {% endif %}
-                {% if event.resources %}
-                <ul>
-                    {% for resource in conv_resource_list(event.resources) %}
-                    <li class='resource-item'>
-                        <a href="{{ resource.link }}"> {{ resource.label }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
+                    <ul style="list-style: none;">
+                        {% if event.description %}
+                        <li><i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        {% endif %}
+                        {% if event.location %}
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        {% endif %}
+                        {% if event.fb_link %}
+                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                            <i class="fab fa-facebook-square"></i> Facebook Link
+                        </a></li>
+                        {% endif %}
+                        {% if event.resources %}
+                        <li><ul>
+                            {% for resource in conv_resource_list(event.resources) %}
+                            <li class='resource-item'>
+                                <a href="{{ resource.link }}"> {{ resource.label }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul></li>
+                        {% endif %}
+                    </ul>
                 </div>
             </li>
             {% endfor %}
