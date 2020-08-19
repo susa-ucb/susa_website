@@ -5,6 +5,19 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/team.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
+<script>
+    function pand(id) {
+        var container = document.getElementById("sum-contain-"+id)
+        var summary = document.getElementById("summarized-"+id);
+        if (summary.className === "summarized") {
+            summary.className += " visible";
+            container.className += " expanded";
+        } else {
+            summary.className = "summarized";
+            container.className = "summary-container";
+        }
+    }
+</script>
 <div class="text-container">
     <div class="people-container">
         <div id="people">
@@ -27,15 +40,17 @@
                             {{ Markup(member.summary) }}
                             </div>
                         </div>
-                        <div class="summary-container">
+                        <div class="summary-container" onclick="pand({{ member.id }})" id="sum-contain-{{ member.id }}">
                             <ol class="attributes">
                                 <li>> summary({{ member.name.split()[0].lower() }})</li>
+                                <span class="summarized" id="summarized-{{ member.id }}">
                                 <li>Major: {{ member.major }}</li>
                                 <li>Year: {{ member.year }}</li>
                                 <li>From: {{ member.origin }}</li>
                                 <li>Current Classes: {{ member.classes }}</li>
                                 {% if member.past_classes %}
                                 <li>Taken Classes: {{ member.past_classes }}</li>
+                                </span>
                                 {% endif %}
                             </ol>
                         </div>
