@@ -64,16 +64,16 @@
             {% for event in upcoming %}
             <li class='event-item'>
                 <span class='item-listing' onclick="pand('{{ event.id }}')">
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
                 </span>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
                         {% if event.description %}
-                        <li><i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ event.description }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location }}</li>
                         {% endif %}
                         {% if event.fb_link %}
                         <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
@@ -91,16 +91,16 @@
             {% for event in past %}
             <li class='event-item' id="event-{{ event.id }}">
                 <span class='item-listing' onclick="pand('{{ event.id }}')">
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
+                    <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
                 </span>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
                         {% if event.description %}
-                        <li><i class="fa fa-question-circle-o" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ event.description }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location }}</li>
                         {% endif %}
                         {% if event.fb_link %}
                         <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
