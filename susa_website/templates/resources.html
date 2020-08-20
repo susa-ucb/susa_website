@@ -23,9 +23,9 @@
         <h2>{{ ['Useful Links', 'Courses', 'Other Links'][i] }}</h2>
         <ul>
             {% for group in [useful_links, courses, other_links][i] %}
-            <li><h3 onclick="pand('{{ group.category }}')">{{ group.category }}
+            <li class="category"><a class="category-label" href="javascript:void(0)" onclick="pand('{{ group.category }}')">{{ group.category }}
                 <span id="button-{{ group.category }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
-            </h3>
+            </a>
                 <div class="link-container" id="group-{{ group.category }}">
                     <ul class="link-list">
                         {% for link in group.link_list %}
