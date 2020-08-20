@@ -62,11 +62,11 @@
         <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href= "https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">calendar</a>.</p>
         <ol class='event-list'>
             {% for event in upcoming %}
-            <li class='event-item'>
-                <span class='item-listing' onclick="pand('{{ event.id }}')">
+            <li class='event-item' id="event-{{ event.id }}">
+                <a class='item-listing' href="javascript:void(0)" onclick="pand('{{ event.id }}')">
                     <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
-                </span>
+                </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
                         {% if event.description %}
@@ -90,10 +90,10 @@
         <ol class="event-list">
             {% for event in past %}
             <li class='event-item' id="event-{{ event.id }}">
-                <span class='item-listing' onclick="pand('{{ event.id }}')">
+                <a href="javascript:void(0)" class='item-listing' onclick="pand('{{ event.id }}')">
                     <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
-                </span>
+                </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
                         {% if event.description %}

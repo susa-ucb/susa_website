@@ -76,3 +76,11 @@ File: "/events/index.php"
 .pand-button:focus {
     outline: 0;
 }
+
+.item-listing {
+    transition: color .15s ease-out;
+}
+
+.item-listing:hover {
+    color: #ED4E33;
+}
