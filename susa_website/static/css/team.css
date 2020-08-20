@@ -111,11 +111,8 @@
 }
 
 .summary-container:hover {
-    margin-left: calc(-135px - 3px);
-    margin-right: calc(135px + 3px);
-    margin-bottom: -3px;
-    margin-top: calc(1em - 3px);
-    border: 3px solid #ED4E33;
+    background: #888888;
+    color: white;
 }
 
 .attributes {
