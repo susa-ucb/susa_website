@@ -63,6 +63,7 @@ border-radius: 1em;
 background: #888888;
 border-radius: 1em;
 }
+
 ::-webkit-scrollbar-thumb:hover {
 background: #696969;
 }

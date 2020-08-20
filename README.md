@@ -8,15 +8,15 @@ Install Python 3.8+ for compatibility insurance
 
 Install the `virtualenv` package in Python
 
-The command `pip install virtualenv` should work for Windows users
+The command `pip install virtualenv` should work for most OS's.
 
 ## Convenience
 
-The code in this repo was developed on Windows 10, I haven't made any adjustments for the make commands as a result of this. Compatibility for the make command may differ.
+The code in this repo was developed on Linux, I haven't made any adjustments for the make commands as a result of this. The make commands most likely won't work in a Windows environment because of differing paths. Change up the paths in the Makefile so that the references to bin are Scripts.
 
 ### Makefile
 
-To set up the venv and fulfill all requirements, run `make init`.
+Before you can run anything, you have to set up the venv and fulfill all requirements; run `make init`.
 
 To run the app, simply run `make run`.
 
