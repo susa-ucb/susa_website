@@ -23,7 +23,7 @@ body {
 a {
     text-decoration: none;
     color: #3B7EA1;
-    transition: color .25s;
+    transition: color .15s ease-out;
 }
 
 a:hover {
@@ -52,14 +52,17 @@ a:hover {
 
 ::-webkit-scrollbar{
 background: #fff;
+border-radius: 1em;
 }
 ::-webkit-scrollbar-track {
 background: none;
 background-color: #E0E0E0;
+border-radius: 1em;
 }
 ::-webkit-scrollbar-thumb {
-background: rgba(000, 000, 000, 0.7);
+background: #888888;
+border-radius: 1em;
 }
 ::-webkit-scrollbar-thumb:hover {
-background: #222;
+background: #696969;
 }
