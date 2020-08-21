@@ -2,7 +2,7 @@
 
 {% block title %} Events | SUSA {% endblock %}
 
-{% block content %}
+{% block head_css %}
 <link rel = "stylesheet" type = "text/css" href = "/static/css/events.css">
 <!-- Fullcalendar to display google calendar schedule -->
 <link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
@@ -39,6 +39,9 @@
     });
 
 </script>
+{% endblock %}
+
+{% block content %}
 <div class = "calendar-container">
     <span id='calendar'></span>
 </div>

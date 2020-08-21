@@ -2,7 +2,7 @@
 
 {% block title %} Our Team | SUSA {% endblock %}
 
-{% block content %}
+{% block head_css %}
 <link rel="stylesheet" type="text/css" href="/static/css/team.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
 <script>
@@ -18,6 +18,9 @@
         }
     }
 </script>
+{% endblock head_css %}
+
+{% block content %}
 <div class="text-container">
     <div class="people-container">
         <div id="people">
