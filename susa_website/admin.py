@@ -70,14 +70,14 @@ class AdminIndex(AdminIndexView):
             return super(AdminIndex, self).index()
 
         if request.method == 'POST':
-            if request.form['username'] != secrets['username'] or request.form['password'] != secrets['password']:
-                error = 'Invalid username and/or password.'
-            else:
+            if (request.form['username'] != secrets['username']) and (request.form['password'] != secrets['password']):
                 user = User()
                 user.id = secrets['username']
                 login_user(user)
                 flash("You were logged in.")
                 return super(AdminIndex, self).index()
+            else:
+                error = 'Invalid username and/or password.'
         return render_template('admin/login.html', error=error)
 
     @expose('/logout')
