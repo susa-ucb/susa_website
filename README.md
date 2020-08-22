@@ -12,17 +12,17 @@ The command `pip install virtualenv` should work for most OS's.
 
 ## Convenience
 
-The code in this repo was developed on Linux, I haven't made any adjustments for the make commands as a result of this. The make commands most likely won't work in a Windows environment because of differing paths. Change up the paths in the Makefile so that the references to bin are Scripts.
+The code in this repo was developed on Linux, I haven't made any adjustments for the `make` commands as a result of this. The make commands most likely won't work in a Windows environment because of differing paths. Change up the paths in the `Makefile` so that the references to `bin` are `Scripts`.
 
 ### Makefile
 
-Before you can run anything, you have to set up the venv and fulfill all requirements; run `make init`.
+Before you can run anything, you have to set up the `venv` and fulfill all requirements; run `make init`.
 
 To run the app, simply run `make run`.
 
 To run in debug mode, run `make debug`.
 
-To clear the venv and cache, run `make clean`.
+To clear the `venv` and cache, run `make clean`.
 
 ### config.yaml
 
@@ -37,4 +37,4 @@ import os
 os.urandom(any_length)
 ```
 
-with any_length being literary any length that you want the key to be
+with `any_length` being any integer length that you want the key to be
