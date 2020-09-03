@@ -114,7 +114,7 @@
                         <li><ul>
                             {% for resource in conv_resource_list(event.resources) %}
                             <li class='resource-item'>
-                                <a href="{{ resource.link }}"> {{ resource.label }}</a>
+                                <a href="{{ resource.link if resource.link[:4] == 'http' else '/static/resources/{}'.format(resource.link) }}"> {{ resource.label }} </a>
                             </li>
                             {% endfor %}
                         </ul></li>

@@ -143,7 +143,7 @@ class EventsForm(FlaskForm):
     description = OpStringField("Event Description")
     fb_link = OpStringField("Facebook Link")
     location = OpStringField("Location")
-    resources = OpStringField("Resources", description="Format is Resource 1 label: link, Resource 2 label: link, ....")
+    resources = OpStringField("Resources", description="Format is Resource 1 label: link, Resource 2 label: link, .... If the the resource is hosted by us, use relative path in /static/, otherwise, make sure to include https...")
 
 class EventsView(AdminView):
     column_searchable_list = ['event_date', 'event_name', 'location']
