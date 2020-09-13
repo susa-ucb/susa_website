@@ -139,7 +139,8 @@ class ResourcesMappingView(AdminView):
 
 class EventsForm(FlaskForm):
     event_date = DateField("Event Date")
-    event_time = TimeField("Event Time")
+    event_time = TimeField("Event Time Start")
+    event_end = TimeField("Event Time End")
     event_name = StringField("Event Name")
     description = OpStringField("Event Description")
     fb_link = OpStringField("Facebook Link")
