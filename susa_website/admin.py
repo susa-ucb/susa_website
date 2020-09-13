@@ -12,7 +12,7 @@ from flask_admin.contrib.fileadmin import FileAdmin
 
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, TextAreaField, SelectField
-from wtforms.fields.html5 import DateField, IntegerField
+from wtforms.fields.html5 import IntegerField, DateField, TimeField
 from wtforms.validators import DataRequired, NumberRange
 
 import os.path as op
@@ -139,6 +139,7 @@ class ResourcesMappingView(AdminView):
 
 class EventsForm(FlaskForm):
     event_date = DateField("Event Date")
+    event_time = TimeField("Event Time")
     event_name = StringField("Event Name")
     description = OpStringField("Event Description")
     fb_link = OpStringField("Facebook Link")

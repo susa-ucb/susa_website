@@ -72,11 +72,14 @@
                 </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
+                        {% if event.time %}
+                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{event.event_time}}</li>
+                        {% endif %}
                         {% if event.description %}
-                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc}> {loc} </a>'.format(loc=event.location)) }}</li>
                         {% endif %}
                         {% if event.fb_link %}
                         <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
@@ -99,11 +102,14 @@
                 </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
+                        {% if event.time %}
+                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{event.event_time}}</li>
+                        {% endif %}
                         {% if event.description %}
-                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ event.description }}</li>
+                        <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc}> {loc} </a>'.format(loc=event.location)) }}</li>
                         {% endif %}
                         {% if event.fb_link %}
                         <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">

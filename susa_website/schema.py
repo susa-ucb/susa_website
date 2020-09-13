@@ -5,6 +5,7 @@ from . import db
 class Events(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_date = db.Column(db.Date, nullable=False)
+    event_time = db.Column(db.Time, nullable=True)
     event_name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(1000), nullable=True)
     fb_link = db.Column(db.String(120), nullable=True)
