@@ -2,7 +2,7 @@
 <html lang = "en-US">
 <head>
     <!--
-        Created by Edward Chang - 2020 Spring
+        Created by Edward Chang - 2020 Fall
     -->
     <title> {% block title %} {% endblock %} </title>
     <meta name = "description" content = "SUSA is the Statistics Undergraduate Student Organization sponsored by the UC Berkeley Statistics department.">
@@ -63,13 +63,6 @@
             <i class="fas fa-bars" style = "font-size: 2em; color: black;"></i>
         </a>
         <ul id = "nav-links">
-            {% if logged_in %}
-            <li>
-                <a href = "/admin" title="Admin Panel" class='admin-ind'>
-                    ADMIN PANEL
-                </a>
-            </li>
-            {% endif %}
             <li>
                 <a href = "/team" class="nav-link" title="Meet our team!">
                     OUR TEAM
@@ -85,6 +78,18 @@
                     RESOURCES
                 </a>
             </li>
+            <li>
+                <a href="/apply" class="nav-link" title="Join our officer team">
+                    APPLY
+                </a>
+            </li>
+            {% if logged_in %}
+            <li>
+                <a href = "/admin" title="Admin Panel" class='nav-link admin-ind'>
+                    ADMIN PANEL
+                </a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 {% block content %} {% endblock %}
@@ -120,6 +125,11 @@
                     <li class = "foot-link">
                         <a href = "/resources" title="Go to the resources page">
                             <i class="fas fa-folder"></i>&nbsp;Resources
+                        </a>
+                    </li>
+                    <li class="foot-link">
+                        <a href="/apply" title="Join our officer team">
+                            <i class="fas fa-folder"></i>&nbsp;Apply
                         </a>
                     </li>
                 </ul>

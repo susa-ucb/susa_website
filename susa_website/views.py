@@ -62,6 +62,10 @@ def resources():
     return susa_render('resources.html', courses=get_groupings(courses),
     useful_links=get_groupings(useful_links), other_links=get_groupings(other_links))
 
+@app.route('/apply')
+def apply():
+    return susa_render('apply.html')
+
 # Error pages
 @app.errorhandler(403)
 def not_authorized(e):
