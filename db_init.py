@@ -6,7 +6,7 @@ if __name__ == '__main__':
     try:
         from susa_website import db
 
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
 
     except ImportError:
