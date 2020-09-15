@@ -56,12 +56,16 @@ File: "/events/index.php"
     display: none;
 }
 
+.details li:not(:last-child) {
+    margin-bottom: .25em;
+}
+
 .expanded.details>* {
     display:block;
 }
 
 .expanded {
-    max-height: 10em;
+    max-height: 40em;
     padding: 1em 0 1em 0em;
 }
 
