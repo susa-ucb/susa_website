@@ -72,8 +72,8 @@
                 </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
-                        {% if event.time %}
-                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{event.event_time}} - {{event.event_end}}</li>
+                        {% if event.event_time %}
+                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{ format_time(event.event_time) }} - {{ format_time(event.event_end) }}</li>
                         {% endif %}
                         {% if event.description %}
                         <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>
@@ -102,8 +102,8 @@
                 </a>
                 <div class = "details" id="details-{{ event.id }}">
                     <ul style="list-style: none;">
-                        {% if event.time %}
-                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{event.event_time}} - {{event.event_end}}</li>
+                        {% if event.event_time %}
+                        <li><i class="fa fa-clock" aria-hidden="true"></i> Time: {{ format_time(event.event_time) }} - {{ format_time(event.event_end) }}</li>
                         {% endif %}
                         {% if event.description %}
                         <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>

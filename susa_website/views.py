@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, flash, redirect, ses
 from flask_login.utils import current_user
 
 from . import app, db, secrets, query_db
-from .utils import get_groupings, conv_error_code, format_date, conv_email_list, conv_resource_list
+from .utils import get_groupings, conv_error_code, format_date, conv_email_list, conv_resource_list, format_time
 
 
 def susa_render(template_name_or_list, **context):
@@ -46,9 +46,9 @@ def events():
     upcoming = query_db('SELECT * FROM events WHERE event_date>=CURRENT_DATE  ORDER BY event_date ASC')
     past = query_db('SELECT * FROM events WHERE event_date<CURRENT_DATE ORDER BY event_date DESC LIMIT 10')
     about_events = query_db('SELECT text FROM contents WHERE area="about_events"', True)
-    return susa_render('events.html', upcoming=upcoming, past=past, format_date=format_date,
-    key=secrets['google_calendar_api'], about_events=about_events,
-    conv_resource_list=conv_resource_list)
+    return susa_render('events.html', upcoming=upcoming, past=past,
+    format_date=format_date, format_time=format_time,
+    key=secrets['google_calendar_api'], about_events=about_events, conv_resource_list=conv_resource_list)
 
 # Resources page view
 @app.route('/resources')
