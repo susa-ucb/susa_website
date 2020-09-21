@@ -61,25 +61,16 @@ class AdminIndex(AdminIndexView):
     @expose('/login', methods=('GET', 'POST'))
     def login_view(self):
         error = None
-        if current_user.is_authenticated:
-            # This is weird, but you won't touch the login page after logging again
-            user = User()
-            user.id = secrets['username']
-            login_user(user)
-            flash("You were logged in.")
-            return super(AdminIndex, self).index()
-
+        
         if request.method == 'POST':
-            if request.form['username'] != secrets['username']:
-                error = 'Invalid username and/or password.'
-            elif request.form['password'] != secrets['password']:
-                error = 'Invalid username and/or password.'
-            else:
+            if (request.form['username'] == secrets['username']) and (request.form['password'] == secrets['password']):
                 user = User()
                 user.id = secrets['username']
                 login_user(user)
                 flash("You were logged in.")
                 return super(AdminIndex, self).index()
+            else:
+                error = 'Invalid username and/or password.'
         return render_template('admin/login.html', error=error)
 
     @expose('/logout')
