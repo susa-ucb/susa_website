@@ -70,7 +70,7 @@ class AdminIndex(AdminIndexView):
             return super(AdminIndex, self).index()
 
         if request.method == 'POST':
-            if (request.form['username'] != secrets['username']) and (request.form['password'] != secrets['password']):
+            if (request.form['username'] == secrets['username']) and (request.form['password'] == secrets['password']):
                 user = User()
                 user.id = secrets['username']
                 login_user(user)
