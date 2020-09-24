@@ -66,6 +66,10 @@ def resources():
 def apply():
     return susa_render('apply.html')
 
+@app.route('/sgsa-fireside')
+def fireside():
+    return redirect('https://forms.gle/QhnAMjpgPfAVzNGB8')
+
 # Error pages
 @app.errorhandler(403)
 def not_authorized(e):
