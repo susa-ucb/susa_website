@@ -74,6 +74,10 @@ def fireside():
 def sgup():
     return susa_render('sgup.html')
 
+@app.route('/sgup/apply')
+def sgup_apply():
+    return redirect('https://forms.gle/Mr77nHycbgBi6Mgx5')
+
 # Error pages
 @app.errorhandler(403)
 def not_authorized(e):
