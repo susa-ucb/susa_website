@@ -64,11 +64,15 @@ def resources():
 
 @app.route('/apply')
 def apply():
-    return susa_render('apply.html')
+    return redirect('https://forms.gle/cGm89VKiMEfix8SH7')
 
 @app.route('/sgsa-fireside')
 def fireside():
     return redirect('https://forms.gle/QhnAMjpgPfAVzNGB8')
+
+@app.route('/sgup')
+def sgup():
+    return susa_render('sgup.html')
 
 # Error pages
 @app.errorhandler(403)
