@@ -7,3 +7,4 @@ susa_website/static/resources/*
 venv/
 .DS_Store
 desktop.ini
+susa_website/static/images/other-ads/*
