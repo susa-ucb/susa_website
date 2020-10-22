@@ -1,0 +1,11 @@
+.highlight {
+  fill: yellow;
+}
+
+.highlightEdge {
+  stroke: black !important;
+}
+
+.vertice, .edge{
+  transition: .5s;
+}
