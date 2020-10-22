@@ -5,6 +5,10 @@ circle {
   stroke: rgb(0,0,0,0);
 }
 
+.category circle {
+  r: 20 !important;
+}
+
 text {
   text-anchor: middle;
   opacity: 1;
@@ -24,8 +28,22 @@ line {
   opacity: 1;
 }
 
+.focus {
+  opacity: .2;
+}
+
+.focus + text {
+  opacity: .2;
+}
+
 .highlight {
   stroke: black;
+  stroke-width: 2;
+  opacity: 1 !important;
+}
+
+.highlight + text {
+  opacity: 1 !important;
 }
 
 .highlightOrange {
@@ -65,9 +83,10 @@ line {
 .highlightEdge {
   stroke: black !important;
   stroke-width: 1.5 !important;
+  opacity: 1 !important;
 }
 
-.vertice, .edge{
+.vertice, .edge, text{
   transition: .4s ease-in-out .2s;
 }
 }

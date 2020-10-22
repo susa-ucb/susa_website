@@ -69,7 +69,7 @@ class Category {
   genNode(map) {
     return `<g class='node category' onmouseover='cats[${map.indexOf(this)}].highlightCategory(els)' onmouseout='cats[${map.indexOf(this)}].unHighlightCategory(els)'>` +
     `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice highlight${this.getColor()} highlight"> </circle>` +
-    `<text transform="translate(${this.getX()},${this.getY() - 45})" >${this.getLabel()}</text>` +
+    `<text transform="translate(${this.getX()},${this.getY() - 30})" >${this.getLabel()}</text>` +
     "</g>";
   }
 }
@@ -132,6 +132,14 @@ class Element {
     }
   }
   highlightPath(map) {
+    for (el in map) {
+      document.getElementById(map[el].getID()).classList.add('focus');
+    }
+    var edges = document.getElementsByClassName("edge");
+    var i;
+    for (i = 0; i < edges.length; i++) {
+      edges[i].classList.add('focus');
+    }
     this.highlight('Orange');
     this.highlightChildren(map);
     this.highlightParents(map);
@@ -160,6 +168,14 @@ class Element {
     }
   }
   unHighlightPath(map) {
+    for (el in map) {
+      document.getElementById(map[el].getID()).classList.remove('focus');
+    }
+    var edges = document.getElementsByClassName("edge");
+    var i;
+    for (i = 0; i < edges.length; i++) {
+      edges[i].classList.remove('focus');
+    }
     this.unHighlight('Orange');
     this.unHighlightChildren(map);
     this.unHighlightParents(map);
@@ -187,13 +203,13 @@ class Element {
 }
 
 var cats = [
-  new Category("Lower Div Req", [50, 450], "Yellow"),
-  new Category("Core Class", [125, 450], "RoyalBlue"),
-  new Category("Elective", [200, 450], "Red"),
-  new Category("Statistics", [275, 450], "Pinkish"),
-  new Category("Data Science", [350, 450], "Purple"),
-  new Category("Math", [425, 450], "GrassGreen"),
-  new Category("Programming", [500, 450], "Pink"),
+  new Category("Lower Div Req", [200/1.5, 450], "Yellow"),
+  new Category("Core Class", [300/1.5, 450], "RoyalBlue"),
+  new Category("Elective", [400/1.5, 450], "Red"),
+  new Category("Statistics", [500/1.5, 450], "Pinkish"),
+  new Category("Data Science", [600/1.5, 450], "Purple"),
+  new Category("Math", [700/1.5, 450], "GrassGreen"),
+  new Category("Programming", [800/1.5, 450], "Pink"),
 ]
 
 var els = [
@@ -201,7 +217,7 @@ var els = [
   new Element("1B", ["1A"], ["53", "54", "20"], [200, 50], ["Lower Div Req", "Math"]),
   new Element("53", ["1B"], ["134"], [150, 112.5], ["Lower Div Req", "Math"]),
   new Element("54", ["1B"], ["135", "100", "102"], [250, 112.5], ["Lower Div Req", "Math"]),
-  new Element("20", ["Math 1B"], [], [300,50], ["Lower Div Req", "Statistics"]),
+  new Element("20", ["1B"], [], [300,50], ["Lower Div Req", "Statistics"]),
   new Element("133", [], ["159"], [600, 170], ["Programming", "Core Class", "Statistics"]),
   new Element("134", ["53"], ["135", "150", "155", "102"], [200, 175], ["Lower Div Req", "Statistics", "Core Class"]),
   new Element("135", ["54", "134"], ["151A", "152", "153", "154", "156", "158", "159"], [250, 250], ["Lower Div Req", "Statistics", "Core Class"]),
@@ -221,8 +237,6 @@ var els = [
   new Element("100", ["61A", "8", "54"], ["102"], [450, 125], ["Core Class", "Data Science"]),
   new Element("102", ["100", "134", "54"], [], [450, 200], ["Elective", "Data Science"])
 ]
-
-var myJSON = JSON.stringify(els);
 
 let div = document.getElementById("courses");
 
