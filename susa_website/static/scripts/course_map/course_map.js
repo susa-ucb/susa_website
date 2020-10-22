@@ -1,18 +1,29 @@
-
+/**
+ * Find the magnitude of the segment between two points.
+ * @params x1, y1, x2, y2 The coordinates of the points (x1, y1) (x2, y2).
+ * @return The magnitude of the segment between the points.
+ */
 function mag(x1, y1, x2, y2) {
   return Math.sqrt((y2 - y1) ** 2 + (x2 - x1) ** 2)
 }
 
-function euclideanLine(x1, y1, x2, y2) {
-  const cx = (x1 + x2) / 2;
-  const cy = (y1 + y2) / 2;
-  const mag = mag(x1, y1, x2, y2) / 2;
-  const magA = mag - 35;
-  const prop = (mag - 70) / 2;
-  const x = mag(x1, y1, cx, cy);
-  return 0;
+/**
+ * Adjust two points based on a scaling of the segment formed between two points
+ * on the center.
+ * @params x1, y1, x2, y2 The coordinates of the points (x1, y1) (x2, y2).
+ * @return The points of the rescaled line segment.
+ */
+function scaleSegment(x1, y1, x2, y2) {
+  const magn = mag(x1, y1, x2, y2);
+  const prop = (magn - 40) / magn;
+  const dx = (x2 - x1) * prop;
+  const dy = (y2 - y1) * prop;
+  const x_2p = x1 + dx;
+  const y_2p = y1 + dy;
+  const x_1p = x2 - dx;
+  const y_1p = y2 - dy;
+  return [x_1p, y_1p, x_2p, y_2p];
 }
-
 
 class Element {
   constructor(label, parents, children, position) {
@@ -114,8 +125,9 @@ class Element {
     var children = this.getChildren(map)
     for (child in children) {
       var child = children[child];
+      var end = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
       var edge = "<line marker-end='url(#triangle)' style='stroke: #ccc; stroke-width: 1;'" +
-      `x1="${this.getX()}" y1="${this.getY()}" x2="${child.getX()}" y2="${child.getY()}"` +
+      `x1="${end[0]}" y1="${end[1]}" x2="${end[2]}" y2="${end[3]}"` +
       `opacity="1" id=${this.getID() + child.getID()} class="edge"></line>`;
       edges.push(edge);
     }
@@ -125,9 +137,10 @@ class Element {
 
 var els = [];
 
-var els = [new Element("Math 1A", [], ["Math 1B"], [100, 50]),
+els = [new Element("Math 1A", [], ["Math 1B"], [100, 50]),
 new Element("Math 1B", ["Math 1A"], ["Math 53", "Math 54", "Stat 20"], [200, 50]),
 new Element("Math 53", ["Math 1B"], ["Stat 134"], [150, 100]),
+new Element("Math 54", ["Math 1B"], [], [250, 100]),
 new Element("Stat 20", ["Math 1B"], [], [350,50]),
 new Element("Stat 134", ["Math 53"], ["Stat 135", "Stat 150", "Stat 155"], [200, 150]),
 new Element("Stat 135", ["Stat 134"], ["Stat 151A", "Stat 152", "Stat 153", "Stat 154", "Stat 156", "Stat 158", "Stat 159"], [300, 200]),
