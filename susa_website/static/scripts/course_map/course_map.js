@@ -37,6 +37,7 @@ class Element {
   getX() { return this.position[0] * 1.5; }
   getY() { return this.position[1] * 1.5; }
   getID() { return this.getLabel().split(' ').join(''); }
+
   getParents(map) {
     var parentEls = []
     for (el in map) {
@@ -61,12 +62,12 @@ class Element {
   highlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.add('highlightEdge');
   }
-  highlight() { document.getElementById(this.getID()).classList.add('highlight'); }
+  highlight(color) { document.getElementById(this.getID()).classList.add('highlight', 'highlight'+color); }
   highlightChildren(map) {
     var children = this.getChildren(map);
     for (child in children) {
       var child = children[child];
-      child.highlight();
+      child.highlight('Blue');
       child.highlightEdge(this);
     }
   }
@@ -74,18 +75,18 @@ class Element {
     var parents = this.getParents(map);
     for (parent in parents) {
       var parent = parents[parent];
-      parent.highlight();
+      parent.highlight('Green');
       parent.highlightParents(map);
       this.highlightEdge(parent);
     }
   }
   highlightPath(map) {
-    this.highlight();
+    this.highlight('Orange');
     this.highlightChildren(map);
     this.highlightParents(map);
   }
 
-  unHighlight() { document.getElementById(this.getID()).classList.remove('highlight'); }
+  unHighlight(color) { document.getElementById(this.getID()).classList.remove('highlight', 'highlight'+color); }
   unHighlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.remove('highlightEdge');
   }
@@ -94,7 +95,7 @@ class Element {
     var child;
     for (child in children) {
       var child = children[child];
-      child.unHighlight();
+      child.unHighlight('Blue');
       child.unHighlightEdge(this);
     }
   }
@@ -102,21 +103,21 @@ class Element {
     var parents = this.getParents(map);
     for (parent in parents) {
       var parent = parents[parent];
-      parent.unHighlight();
+      parent.unHighlight('Green');
       parent.unHighlightParents(map);
       this.unHighlightEdge(parent);
     }
   }
   unHighlightPath(map) {
-    this.unHighlight();
+    this.unHighlight('Orange');
     this.unHighlightChildren(map);
     this.unHighlightParents(map);
   }
 
   genNode() {
     return `<g class='node' onmouseover='els[${els.indexOf(this)}].highlightPath(els)' onmouseout='els[${els.indexOf(this)}].unHighlightPath(els)'>` +
-    `<circle r='30' opacity='1' cx=${this.getX()} cy=${this.getY()} fill='grey' id=${this.getID()} class="vertice"> </circle>` +
-    `<text text-anchor="middle" transform="translate(${this.getX()},${this.getY()})" opacity="1">${this.getLabel()}</text>` +
+    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice"> </circle>` +
+    `<text transform="translate(${this.getX()},${this.getY()})" >${this.getLabel()}</text>` +
     "</g>";
   }
 
@@ -125,10 +126,9 @@ class Element {
     var children = this.getChildren(map)
     for (child in children) {
       var child = children[child];
-      var end = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
-      var edge = "<line marker-end='url(#triangle)' style='stroke: #ccc; stroke-width: 1;'" +
-      `x1="${end[0]}" y1="${end[1]}" x2="${end[2]}" y2="${end[3]}"` +
-      `opacity="1" id=${this.getID() + child.getID()} class="edge"></line>`;
+      var ends = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
+      var edge = `<line x1="${ends[0]}" y1="${ends[1]}" x2="${ends[2]}" y2="${ends[3]}"` +
+      `id=${this.getID() + child.getID()} class="edge"></line>`;
       edges.push(edge);
     }
     return edges;

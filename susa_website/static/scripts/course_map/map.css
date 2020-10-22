@@ -1,5 +1,36 @@
+circle {
+  fill: #EEE;
+  r: 30;
+  opacity: 1;
+}
+
+text {
+  text-anchor: middle;
+  opacity: 1;
+  font-size: .75em;
+}
+
+line {
+  marker-end: url(#triangle);
+  stroke: #ccc;
+  stroke-width: 1;
+  opacity: 1;
+}
+
 .highlight {
-  fill: yellow;
+  stroke: black;
+}
+
+.highlightOrange {
+  fill: #E69F00;
+}
+
+.highlightBlue {
+  fill: #56B4E9;
+}
+
+.highlightGreen {
+  fill: #009E73;
 }
 
 .highlightEdge {
@@ -7,5 +38,6 @@
 }
 
 .vertice, .edge{
-  transition: .5s;
+  transition: .4s ease-in-out .05s;
+}
 }
