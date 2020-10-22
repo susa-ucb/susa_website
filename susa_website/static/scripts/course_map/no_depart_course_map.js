@@ -33,7 +33,7 @@ class Category {
 
   getLabel() { return this.label; }
   getX() { return this.position[0] * 1.5; }
-  getY() { return this.position[1] * 1.5; }
+  getY() { return (this.position[1] + 50) * 1.5; }
   getID() { return this.getLabel().split(' ').join(''); }
   getColor() { return this.color; }
 
@@ -85,7 +85,7 @@ class Element {
 
   getLabel() { return this.label; }
   getX() { return this.position[0] * 1.5; }
-  getY() { return this.position[1] * 1.5; }
+  getY() { return (this.position[1] + 50) * 1.5; }
   getID() { return this.getLabel().split(' ').join(''); }
   getCategories() { return this.categories; }
 
@@ -168,7 +168,7 @@ class Element {
   genNode() {
     return `<g class='node' onmouseover='els[${els.indexOf(this)}].highlightPath(els)' onmouseout='els[${els.indexOf(this)}].unHighlightPath(els)'>` +
     `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice"> </circle>` +
-    `<text transform="translate(${this.getX()},${this.getY()})" >${this.getLabel()}</text>` +
+    `<text transform="translate(${this.getX()},${this.getY()+5})" >${this.getLabel()}</text>` +
     "</g>";
   }
 
@@ -187,39 +187,39 @@ class Element {
 }
 
 var cats = [
-  new Category("Lower Div Req", [50, 500], "Yellow"),
-  new Category("Core Class", [125, 500], "RoyalBlue"),
-  new Category("Elective", [200, 500], "Red"),
-  new Category("Statistics", [275, 500], "Pinkish"),
-  new Category("Data Science", [350, 500], "Purple"),
-  new Category("Math", [425, 500], "GrassGreen"),
-  new Category("Programming", [500, 500], "Pink"),
+  new Category("Lower Div Req", [50, 450], "Yellow"),
+  new Category("Core Class", [125, 450], "RoyalBlue"),
+  new Category("Elective", [200, 450], "Red"),
+  new Category("Statistics", [275, 450], "Pinkish"),
+  new Category("Data Science", [350, 450], "Purple"),
+  new Category("Math", [425, 450], "GrassGreen"),
+  new Category("Programming", [500, 450], "Pink"),
 ]
 
 var els = [
-  new Element("Math 1A", [], ["Math 1B"], [100, 50], ["Lower Div Req", "Math"]),
-  new Element("Math 1B", ["Math 1A"], ["Math 53", "Math 54", "Stat 20"], [200, 50], ["Lower Div Req", "Math"]),
-  new Element("Math 53", ["Math 1B"], ["Stat 134"], [150, 100], ["Lower Div Req", "Math"]),
-  new Element("Math 54", ["Math 1B"], ["Stat 135", "Data 100", "Data 102"], [250, 100], ["Lower Div Req", "Math"]),
-  new Element("Stat 20", ["Math 1B"], [], [300,50], ["Lower Div Req", "Statistics"]),
-  new Element("Stat 133", [], [], [600, 150], ["Programming", "Core Class", "Statistics"]),
-  new Element("Stat 134", ["Math 53"], ["Stat 135", "Stat 150", "Stat 155", "Data 102"], [200, 150], ["Lower Div Req", "Statistics", "Core Class"]),
-  new Element("Stat 135", ["Math 54", "Stat 134"], ["Stat 151A", "Stat 152", "Stat 153", "Stat 154", "Stat 156", "Stat 158", "Stat 159"], [300, 200], ["Lower Div Req", "Statistics", "Core Class"]),
-  new Element("Stat 150", ["Stat 134"], [], [100, 200], ["Statistics", "Elective"]),
-  new Element("Stat 155", ["Stat 134"], [], [150, 250], ["Statistics", "Elective"]),
-  new Element("Stat 151A", ["Stat 135"], [], [200, 250], ["Statistics", "Elective"]),
-  new Element("Stat 152", ["Stat 135"], [], [250, 300], ["Statistics", "Elective"]),
-  new Element("Stat 153", ["Stat 135"], [], [300, 350], ["Statistics", "Elective"]),
-  new Element("Stat 154", ["Stat 135"], [], [350, 400], ["Statistics", "Elective"]),
-  new Element("Stat 156", ["Stat 135"], [], [400, 350], ["Statistics", "Elective"]),
-  new Element("Stat 158", ["Stat 135"], [], [450, 300], ["Statistics", "Elective"]),
-  new Element("Stat 159", ["Stat 135"], [], [500, 250], ["Statistics", "Elective", "Data Science"]),
-  new Element("Stat 33A", [], [], [600, 50], ["Programming", "Statistics"]),
-  new Element("Stat 33B", ["CS 61A"], [], [600, 100], ["Programming", "Core Class", "Statistics"]),
-  new Element("CS 61A", [], ["Data 100", "Stat 33B"], [500, 50], ["Programming"]),
-  new Element("Data 8", [], ["Data 100"], [400, 50], ["Lower Div Req", "Data Science"]),
-  new Element("Data 100", ["CS 61A", "Data 8", "Math 54"], ["Data 102"], [450, 125], ["Core Class", "Data Science"]),
-  new Element("Data 102", ["Data 100", "Stat 134", "Math 54"], [], [450, 200], ["Elective", "Data Science"])
+  new Element("1A", [], ["1B"], [100, 50], ["Lower Div Req", "Math"]),
+  new Element("1B", ["1A"], ["53", "54", "20"], [200, 50], ["Lower Div Req", "Math"]),
+  new Element("53", ["1B"], ["134"], [150, 112.5], ["Lower Div Req", "Math"]),
+  new Element("54", ["1B"], ["135", "100", "102"], [250, 112.5], ["Lower Div Req", "Math"]),
+  new Element("20", ["Math 1B"], [], [300,50], ["Lower Div Req", "Statistics"]),
+  new Element("133", [], ["159"], [600, 170], ["Programming", "Core Class", "Statistics"]),
+  new Element("134", ["53"], ["135", "150", "155", "102"], [200, 175], ["Lower Div Req", "Statistics", "Core Class"]),
+  new Element("135", ["54", "134"], ["151A", "152", "153", "154", "156", "158", "159"], [250, 250], ["Lower Div Req", "Statistics", "Core Class"]),
+  new Element("150", ["134"], [], [100, 175], ["Statistics", "Elective"]),
+  new Element("155", ["134"], [], [125, 225], ["Statistics", "Elective"]),
+  new Element("151A", ["135"], [], [100, 300], ["Statistics", "Elective"]),
+  new Element("152", ["135"], [], [150, 330], ["Statistics", "Elective"]),
+  new Element("153", ["135"], [], [200, 350], ["Statistics", "Elective"]),
+  new Element("154", ["135"], [], [250, 360], ["Statistics", "Elective"]),
+  new Element("156", ["135"], [], [300, 350], ["Statistics", "Elective"]),
+  new Element("158", ["135"], [], [350, 330], ["Statistics", "Elective"]),
+  new Element("159", ["135", "133"], [], [400, 300], ["Statistics", "Elective", "Data Science"]),
+  new Element("33A", [], [], [600, 50], ["Programming", "Statistics"]),
+  new Element("33B", ["61A"], [], [600, 110], ["Programming", "Core Class", "Statistics"]),
+  new Element("61A", [], ["100", "33B"], [500, 50], ["Programming"]),
+  new Element("8", [], ["100"], [400, 50], ["Lower Div Req", "Data Science"]),
+  new Element("100", ["61A", "8", "54"], ["102"], [450, 125], ["Core Class", "Data Science"]),
+  new Element("102", ["100", "134", "54"], [], [450, 200], ["Elective", "Data Science"])
 ]
 
 var myJSON = JSON.stringify(els);

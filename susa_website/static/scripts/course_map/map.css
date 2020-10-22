@@ -2,12 +2,19 @@ circle {
   fill: #EEE;
   r: 30;
   opacity: 1;
+  stroke: rgb(0,0,0,0);
 }
 
 text {
   text-anchor: middle;
   opacity: 1;
-  font-size: .75em;
+  font-size: 1em;
+  font-family: 'Raleway';
+}
+
+#title {
+  font-size: 2em;
+  font-weight: bolder;
 }
 
 line {
@@ -33,11 +40,34 @@ line {
   fill: #009E73;
 }
 
+.highlightYellow{
+  fill: #F0E442;
+}
+.highlightRoyalBlue{
+  fill: #0072B2;
+}
+.highlightRed{
+  fill: #D55E00;
+}
+.highlightPinkish{
+  fill: #CC79A7;
+}
+.highlightPurple{
+  fill: #895BF8;
+}
+.highlightPink{
+  fill: #F982A4;
+}
+.highlightGrassGreen{
+  fill: #5BE241;
+}
+
 .highlightEdge {
   stroke: black !important;
+  stroke-width: 1.5 !important;
 }
 
 .vertice, .edge{
-  transition: .4s ease-in-out .05s;
+  transition: .4s ease-in-out .2s;
 }
 }
