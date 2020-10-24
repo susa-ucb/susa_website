@@ -42,6 +42,18 @@ line {
   opacity: 1 !important;
 }
 
+.Statistics {
+  fill: #CC79A7;
+}
+
+.Data {
+  fill: #895BF8;
+}
+
+.Math {
+  fill: #5BE241;
+}
+
 .highlight + text {
   opacity: 1 !important;
 }
