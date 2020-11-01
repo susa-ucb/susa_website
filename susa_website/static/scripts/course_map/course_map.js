@@ -24,21 +24,86 @@ function scaleSegment(x1, y1, x2, y2) {
   return [x_1p, y_1p, x_2p, y_2p];
 }
 
-class Category {
-  constructor(label, position, color) {
+class Node {
+  constructor(label, position) {
     this.label = label;
     this.position = position;
-    this.color = color;
   }
 
   getLabel() { return this.label; }
-  getX() { return this.position[0] * 1.5; }
-  getY() { return this.position[1] * 1.5; }
+  getX() { return this.position[0]+200; }
+  getY() { return this.position[1]+100; }
   getID() { return this.getLabel().split(' ').join(''); }
-  getColor() { return this.color; }
 
-  highlight() { document.getElementById(this.getID()).classList.add('highlight', 'highlight'+this.getColor()); }
-  unHighlight() { document.getElementById(this.getID()).classList.remove('highlight', 'highlight'+this.getColor()); }
+  highlight(color) {
+    if (typeof color == "undefined") {
+      document.getElementById(this.getID()).classList.add('highlight');
+    } else {
+      document.getElementById(this.getID()).classList.add('highlight', 'highlight' + color);
+    }
+  }
+  unHighlight(color) {
+    if (typeof color == "undefined") {
+      document.getElementById(this.getID()).classList.remove('highlight');
+    } else {
+      document.getElementById(this.getID()).classList.remove('highlight', 'highlight' + color);
+    }
+  }
+}
+
+class Department extends Node {
+  constructor(label, position, color) {
+    super(label, position);
+    this.color = color;
+  }
+
+  highlight() { super.highlight(); }
+  unHighlight() { super.unHighlight(); }
+
+  getDepartment(map) {
+    var departmentEls = []
+    for (el in map) {
+      var el = map[el];
+      if (el.getDepartment() == this.getLabel()) {
+        departmentEls.push(el);
+      }
+    }
+    return departmentEls;
+  }
+
+  highlightDepartment(map) {
+    this.highlight();
+    var departmentEls = this.getDepartment(map);
+    for (el in departmentEls) {
+      departmentEls[el].highlight();
+    }
+  }
+
+  unHighlightDepartment(map) {
+    this.unHighlight();
+    var departmentEls = this.getDepartment(map);
+    for (el in departmentEls) {
+      departmentEls[el].unHighlight();
+    }
+  }
+
+  genNode() {
+    return `<g class='node department' onmouseover='deps[${deps.indexOf(this)}].highlightDepartment(els)' onmouseout='deps[${deps.indexOf(this)}].unHighlightDepartment(els)'>` +
+    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice ${this.getLabel()}"> </circle>` +
+    `<text transform="translate(${this.getX()},${this.getY()-30})" >${this.getLabel()}</text>` +
+    "</g>";
+  }
+
+}
+
+class Category extends Node {
+  constructor(label, position) {
+    super(label, position);
+    this.color = "Orange";
+  }
+
+  highlight() { super.highlight(this.color); }
+  unHighlight() { super.unHighlight(this.color); }
 
   getCategory(map) {
     var categoryEls = []
@@ -52,42 +117,42 @@ class Category {
   }
 
   highlightCategory(map) {
+    this.highlight();
     var category = this.getCategory(map);
     for (el in category) {
       var el = category[el];
-      el.highlight(this.getColor());
+      el.highlight(this.color);
     }
   }
   unHighlightCategory(map) {
+    this.unHighlight();
     var category = this.getCategory(map);
     for (el in category) {
       var el = category[el];
-      el.unHighlight(this.getColor());
+      el.unHighlight(this.color);
     }
   }
 
   genNode(map) {
     return `<g class='node category' onmouseover='cats[${map.indexOf(this)}].highlightCategory(els)' onmouseout='cats[${map.indexOf(this)}].unHighlightCategory(els)'>` +
-    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice highlight${this.getColor()} highlight"> </circle>` +
-    `<text transform="translate(${this.getX()},${this.getY() - 45})" >${this.getLabel()}</text>` +
+    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice"> </circle>` +
+    `<text transform="translate(${this.getX()},${this.getY() - 30})" >${this.getLabel()}</text>` +
     "</g>";
   }
 }
 
-class Element {
-  constructor(label, parents, children, position, categories) {
-    this.label = label;
+class Element extends Node {
+  constructor(label, parents, children, fetuses, position, categories, department) {
+    super(label, position);
     this.parents = parents;
     this.children = children;
-    this.position = position;
+    this.fetuses = fetuses;
     this.categories = categories;
+    this.department = department;
   }
 
-  getLabel() { return this.label; }
-  getX() { return this.position[0] * 1.5; }
-  getY() { return this.position[1] * 1.5; }
-  getID() { return this.getLabel().split(' ').join(''); }
   getCategories() { return this.categories; }
+  getDepartment() { return this.department; }
 
   getParents(map) {
     var parentEls = []
@@ -109,11 +174,12 @@ class Element {
     }
     return childrenEls;
   }
+  getFetuses() { return this.fetuses; }
 
   highlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.add('highlightEdge');
   }
-  highlight(color) { document.getElementById(this.getID()).classList.add('highlight', 'highlight'+color); }
+  highlight(color) { super.highlight(color); }
   highlightChildren(map) {
     var children = this.getChildren(map);
     for (child in children) {
@@ -122,22 +188,34 @@ class Element {
       child.highlightEdge(this);
     }
   }
-  highlightParents(map) {
+  highlightParents(map, referred) {
     var parents = this.getParents(map);
     for (parent in parents) {
       var parent = parents[parent];
       parent.highlight('Green');
-      parent.highlightParents(map);
+      if (referred != parent) {
+      parent.highlightParents(map, referred);
+    } else {
+      console.log("conflict", referred, parent);
+    }
       this.highlightEdge(parent);
     }
   }
   highlightPath(map) {
+    for (el in map) {
+      document.getElementById(map[el].getID()).classList.add('focus');
+    }
+    var edges = document.getElementsByClassName("edge");
+    var i;
+    for (i = 0; i < edges.length; i++) {
+      edges[i].classList.add('focus');
+    }
     this.highlight('Orange');
     this.highlightChildren(map);
-    this.highlightParents(map);
+    this.highlightParents(map, this);
   }
 
-  unHighlight(color) { document.getElementById(this.getID()).classList.remove('highlight', 'highlight'+color); }
+  unHighlight(color) { super.unHighlight(color); }
   unHighlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.remove('highlightEdge');
   }
@@ -150,25 +228,37 @@ class Element {
       child.unHighlightEdge(this);
     }
   }
-  unHighlightParents(map) {
+  unHighlightParents(map, referred) {
     var parents = this.getParents(map);
     for (parent in parents) {
       var parent = parents[parent];
       parent.unHighlight('Green');
-      parent.unHighlightParents(map);
+      if (referred != parent) {
+      parent.unHighlightParents(map, parent);
+      } else {
+        console.log("conflict", referred, parent);
+      }
       this.unHighlightEdge(parent);
     }
   }
   unHighlightPath(map) {
+    for (el in map) {
+      document.getElementById(map[el].getID()).classList.remove('focus');
+    }
+    var edges = document.getElementsByClassName("edge");
+    var i;
+    for (i = 0; i < edges.length; i++) {
+      edges[i].classList.remove('focus');
+    }
     this.unHighlight('Orange');
     this.unHighlightChildren(map);
-    this.unHighlightParents(map);
+    this.unHighlightParents(map, this);
   }
 
   genNode() {
     return `<g class='node' onmouseover='els[${els.indexOf(this)}].highlightPath(els)' onmouseout='els[${els.indexOf(this)}].unHighlightPath(els)'>` +
-    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice"> </circle>` +
-    `<text transform="translate(${this.getX()},${this.getY()})" >${this.getLabel()}</text>` +
+    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice ${this.getDepartment()}"> </circle>` +
+    `<text transform="translate(${this.getX()},${this.getY()+5})" >${this.getLabel()}</text>` +
     "</g>";
   }
 
@@ -178,53 +268,86 @@ class Element {
     for (child in children) {
       var child = children[child];
       var ends = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
+      var edgeClass = "edge";
+      if (this.getFetuses().includes(child.getLabel())) {
+        edgeClass += " opt-edge"
+      }
       var edge = `<line x1="${ends[0]}" y1="${ends[1]}" x2="${ends[2]}" y2="${ends[3]}"` +
-      `id=${this.getID() + child.getID()} class="edge"></line>`;
+      `id=${this.getID() + child.getID()} class="${edgeClass}"></line>`;
       edges.push(edge);
     }
     return edges;
   }
 }
 
-var cats = [
-  new Category("Lower Div Req", [50, 500], "Yellow"),
-  new Category("Core Class", [125, 500], "RoyalBlue"),
-  new Category("Elective", [200, 500], "Red"),
-  new Category("Statistics", [275, 500], "Pinkish"),
-  new Category("Data Science", [350, 500], "Purple"),
-  new Category("Math", [425, 500], "GrassGreen"),
-  new Category("Programming", [500, 500], "Pink"),
+function circle_gen(center, radius) {
+  const cx = center[0]
+  const cy = center[1]
+  function circle_coord(rad_frac) {
+    const deg = Math.PI * rad_frac
+    return [cx + Math.cos(deg) * radius, cy - Math.sin(deg) * radius]
+  }
+  return circle_coord
+}
+
+var department_circ = circle_gen([700, 450], 45)
+
+var deps = [
+  new Department("Statistics", department_circ(1/2), "Pinkish"),
+  new Department("Data", department_circ(7/6), "Purple"),
+  new Department("Math", department_circ(-1/6), "GrassGreen")
 ]
+
+var cats = [
+  new Category("Lower Div Req", [0, 600]),
+  new Category("Core Class", [100, 600]),
+  new Category("Elective", [200, 600]),
+  new Category("Programming", [300, 600]),
+]
+
+var stat_135_circ = circle_gen([350, 300], 200)
+var stat_135_circ2 = circle_gen([350, 300], 125)
+var stat_134_circ = circle_gen([55, 250], 150)
+var math_1b_circ = circle_gen([150, 0], 175)
+var elective_circ = circle_gen([500, 150], 300)
 
 var els = [
-  new Element("Math 1A", [], ["Math 1B"], [100, 50], ["Lower Div Req", "Math"]),
-  new Element("Math 1B", ["Math 1A"], ["Math 53", "Math 54", "Stat 20"], [200, 50], ["Lower Div Req", "Math"]),
-  new Element("Math 53", ["Math 1B"], ["Stat 134"], [150, 100], ["Lower Div Req", "Math"]),
-  new Element("Math 54", ["Math 1B"], ["Stat 135", "Data 100", "Data 102"], [250, 100], ["Lower Div Req", "Math"]),
-  new Element("Stat 20", ["Math 1B"], [], [300,50], ["Lower Div Req", "Statistics"]),
-  new Element("Stat 133", [], [], [600, 150], ["Programming", "Core Class", "Statistics"]),
-  new Element("Stat 134", ["Math 53"], ["Stat 135", "Stat 150", "Stat 155", "Data 102"], [200, 150], ["Lower Div Req", "Statistics", "Core Class"]),
-  new Element("Stat 135", ["Math 54", "Stat 134"], ["Stat 151A", "Stat 152", "Stat 153", "Stat 154", "Stat 156", "Stat 158", "Stat 159"], [300, 200], ["Lower Div Req", "Statistics", "Core Class"]),
-  new Element("Stat 150", ["Stat 134"], [], [100, 200], ["Statistics", "Elective"]),
-  new Element("Stat 155", ["Stat 134"], [], [150, 250], ["Statistics", "Elective"]),
-  new Element("Stat 151A", ["Stat 135"], [], [200, 250], ["Statistics", "Elective"]),
-  new Element("Stat 152", ["Stat 135"], [], [250, 300], ["Statistics", "Elective"]),
-  new Element("Stat 153", ["Stat 135"], [], [300, 350], ["Statistics", "Elective"]),
-  new Element("Stat 154", ["Stat 135"], [], [350, 400], ["Statistics", "Elective"]),
-  new Element("Stat 156", ["Stat 135"], [], [400, 350], ["Statistics", "Elective"]),
-  new Element("Stat 158", ["Stat 135"], [], [450, 300], ["Statistics", "Elective"]),
-  new Element("Stat 159", ["Stat 135"], [], [500, 250], ["Statistics", "Elective", "Data Science"]),
-  new Element("Stat 33A", [], [], [600, 50], ["Programming", "Statistics"]),
-  new Element("Stat 33B", ["CS 61A"], [], [600, 100], ["Programming", "Core Class", "Statistics"]),
-  new Element("CS 61A", [], ["Data 100", "Stat 33B"], [500, 50], ["Programming"]),
-  new Element("Data 8", [], ["Data 100"], [400, 50], ["Lower Div Req", "Data Science"]),
-  new Element("Data 100", ["CS 61A", "Data 8", "Math 54"], ["Data 102"], [450, 125], ["Core Class", "Data Science"]),
-  new Element("Data 102", ["Data 100", "Stat 134", "Math 54"], [], [450, 200], ["Elective", "Data Science"])
+  new Element("1A", [], ["131A", "1B", "20", "88"], [], [0, 0], ["Lower Div Req"], "Math"),
+  new Element("1B", ["1A"], ["89A","53", "54", "55", "134", "C140"], ["20"], [150, 0], ["Lower Div Req"], "Math"),
+  new Element("53", ["1B"], ["134", "C140", "154"], ["134", "C140"], math_1b_circ(10/8), ["Lower Div Req"], "Math"),
+  new Element("54", ["1B"], ["135", "C100", "C102", "C140"], [], math_1b_circ(12/8), ["Lower Div Req"], "Math"),
+  new Element("55", ["1B"], ["154"], ["154"], [0, 50], [], "Math"),
+  new Element("20", ["1A"], ["131A", "C140"], [], [300,0], ["Lower Div Req"], "Statistics"),
+  new Element("88", ["1A", "C8"], ["C8"], [], [200, 75], [], "Statistics"),
+  new Element("89A", ["1B", "C8"], ["135", "C100", "C102", "C140", "C8"], ["C8"], math_1b_circ(15.5/8), [], "Statistics"),
+  new Element("131A", ["33A", "133", "C8", "20", "1A"], ["33A", "133"], ["33A", "133"], [575, 150], [], "Data"),
+  new Element("133", [], ["131A", "159", "151A", "152", "153", "158", "135"], ["131A", "158", "152", "151A", "153","135"], [750, 200], ["Programming", "Core Class"], "Statistics"),
+  new Element("134", ["53", "1B"], ["135", "150", "155", "C102", "152", "153"], [], [55, 250], ["Lower Div Req", "Core Class"], "Statistics"),
+  new Element("135", ["54", "89A", "134", "C140", "133"], ["151A", "152", "153", "154", "156", "157", "158", "159", "133"], ["152", "153", "133"], [350, 300], ["Lower Div Req", "Core Class"], "Statistics"),
+  new Element("150", ["134", "C140"], [], [], stat_134_circ(10.5/8), ["Elective"], "Statistics"),
+  new Element("151A", ["135", "C102", "133"], [], [], stat_135_circ(8/8), ["Elective"], "Statistics"),
+  new Element("152", ["135", "133", "134"], [], [], stat_135_circ2(9.5/8), ["Elective"], "Statistics"),
+  new Element("153", ["134", "133", "135"], [], [], stat_135_circ(11/8), ["Elective"], "Statistics"),
+  new Element("154", ["135", "53", "55"], [], [], stat_135_circ2(12.5/8), ["Elective"], "Statistics"),
+  new Element("155", ["134", "C140"], [], [],  stat_134_circ(12.25/8), ["Elective"], "Statistics"),
+  new Element("156", ["135"], [], [], stat_135_circ(14/8), ["Elective"], "Statistics"),
+  new Element("157", ["135"], [], [], [400, 450], ["Elective"], "Statistics"),
+  new Element("158", ["135", "133"], ["135"], [], stat_135_circ2(15.5/8), ["Elective"], "Statistics"),
+  new Element("159", ["135", "133"], [], [], stat_135_circ(15.5/8), ["Elective"], "Statistics"),
+  new Element("33A", [], ["131A"], ["131A"], [750, 0], ["Programming"], "Statistics"),
+  new Element("33B", ["61A"], [], [], [750, 100], ["Programming", "Core Class"], "Statistics"),
+  new Element("61A", [], ["C100", "33B", "C140"], [], [600, 0], ["Programming"]),
+  new Element("C8", [], ["131A", "89A","C100", "C140", "88"], [], [450, 0], ["Lower Div Req"], "Data"),
+  new Element("C100", ["61A", "C8", "54", "89A"], ["C102", "C140", "54", "89A"], [], [525, 100], ["Core Class"], "Data"),
+  new Element("C102", ["C100", "134", "54", "C140", "89A"], ["151A"], [], [450, 200], ["Elective"], "Data"),
+  new Element("C140", ["54", "53", "C8", "C100", "20", "61A", "89A", "1B"], ["135", "150", "155", "C102", "54", "89A"], [], [315, 175], ["Lower Div Req", "Core Class"], "Data")
 ]
 
-var myJSON = JSON.stringify(els);
-
 let div = document.getElementById("courses");
+
+for (dep in deps) {
+  div.innerHTML += deps[dep].genNode(deps);
+}
 
 for (cat in cats) {
   div.innerHTML += cats[cat].genNode(cats);

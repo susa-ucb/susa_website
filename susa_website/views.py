@@ -62,6 +62,10 @@ def resources():
     return susa_render('resources.html', courses=get_groupings(courses),
     useful_links=get_groupings(useful_links), other_links=get_groupings(other_links))
 
+@app.route('/course-map')
+def course_map():
+    return susa_render('course_map.html')
+
 @app.route('/apply')
 def apply():
     return redirect('https://forms.gle/cGm89VKiMEfix8SH7')
@@ -77,6 +81,10 @@ def sgup():
 @app.route('/sgup/apply')
 def sgup_apply():
     return redirect('https://forms.gle/Mr77nHycbgBi6Mgx5')
+
+@app.route('/mailing-list')
+def mailing_list():
+    return redirect('https://groups.google.com/a/lists.berkeley.edu/forum/#!managemembers/susa/join')
 
 # Error pages
 @app.errorhandler(403)

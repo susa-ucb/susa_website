@@ -1,0 +1,74 @@
+#course-map {
+  left: 50%;
+  margin-left: -500px;
+  margin-right: 500px;
+}
+
+text {
+  text-anchor: middle;
+  opacity: 1;
+  font-size: 1em;
+  font-family: 'Raleway';
+}
+line {
+  marker-end: url(#triangle);
+  stroke: #ccc;
+  stroke-width: 1;
+  opacity: 1;
+}
+
+.opt-edge{
+  stroke-dasharray: 5;
+}
+
+circle {
+  fill: #EEE;
+  r: 30;
+  opacity: 1;
+  stroke: rgb(0,0,0,0);
+}
+.category circle { r: 20 !important; }
+.department circle { r: 20 !important; }
+
+#title {
+  font-size: 2em;
+  font-weight: bolder;
+}
+
+.focus { opacity: .2; }
+.focus + text { opacity: .2; }
+
+.highlight {
+  stroke: black;
+  stroke-width: 2;
+  opacity: 1 !important;
+}
+.highlight + text { opacity: 1 !important; }
+
+.Statistics { fill: #CC79A7; }
+.Data { fill: #895BF8; }
+.Math { fill: #5BE241; }
+.highlightOrange { fill: #E69F00; }
+.highlightBlue { fill: #56B4E9; }
+.highlightGreen { fill: #009E73; }
+.highlightYellow{ fill: #F0E442; }
+.highlightRoyalBlue{ fill: #0072B2; }
+.highlightRed{ fill: #D55E00; }
+.highlightPinkish{ fill: #CC79A7; }
+.highlightPurple{ fill: #895BF8; }
+.highlightPink{ fill: #F982A4; }
+.highlightGrassGreen{ fill: #5BE241; }
+
+.highlightEdge {
+  stroke: black !important;
+  stroke-width: 1.5 !important;
+  opacity: 1 !important;
+}
+
+.vertice, .edge, text{
+  transition-property: fill, opacity, stroke, stroke-width;
+  transition-duration: .3s;
+  transition-timing-function: ease-out;
+  transition-delay: .2s;
+}
+}
