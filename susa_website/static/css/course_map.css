@@ -21,6 +21,15 @@ line {
   stroke-dasharray: 7;
 }
 
+.legend-edge {
+  stroke: black;
+  stroke-width: 1.5;
+}
+
+.double-edge{
+  marker-start: url(#rev-triangle);
+}
+
 circle {
   fill: #EEE;
   r: 30;

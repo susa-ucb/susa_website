@@ -32,7 +32,7 @@ class Node {
 
   getLabel() { return this.label; }
   getX() { return this.position[0]+200; }
-  getY() { return this.position[1]+150; }
+  getY() { return this.position[1]+125; }
   getID() { return this.getLabel().split(' ').join(''); }
 
   highlight(color) {
