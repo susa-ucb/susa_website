@@ -1,7 +1,7 @@
 #course-map {
   left: 50%;
-  margin-left: -500px;
-  margin-right: 500px;
+  margin-left: -600px;
+  margin-right: 600px;
 }
 
 text {
@@ -18,7 +18,7 @@ line {
 }
 
 .opt-edge{
-  stroke-dasharray: 5;
+  stroke-dasharray: 7;
 }
 
 circle {
