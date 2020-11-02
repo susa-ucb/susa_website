@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang = "en-US">
+<head>
+    <!--
+        Created by Edward Chang - 2020 Fall
+    -->
+    <title>  Statistics Course Map | SUSA  </title>
+    <meta name = "description" content = "SUSA is the Statistics Undergraduate Student Organization sponsored by the UC Berkeley Statistics department.">
+    <meta charset = "UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" type = "text/css" href = "../../css/general.css">
+    <link rel = "stylesheet" type = "text/css" href = "../../css/resources.css">
+    <link rel = "stylesheet" type = "text/css" href = "../../css/course_map.css">
+</head>
+<body>
+<div class = "text-container">
+  <div id = "text">
+    <div id="course-map">
+      <svg height="850" width="1200" id = "courses">
+        <text transform="translate(600,50)" id="title">Statistics Course Map</text>
+        <text transform="translate(600,80)">Hover over a circle to see course prerequisites and potential classes!</text>
+        <marker id="triangle" viewBox="0 0 10 10"
+              refX="1" refY="5"
+              markerWidth="10" markerHeight="10"
+              orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+        </marker>
+        <marker id="rev-triangle" viewBox="0 0 10 10"
+              refX="1" refY="5"
+              markerWidth="10" markerHeight="10"
+              orient="180deg">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+        </marker>
+        <text transform="translate(1050,675)">Required</text>
+        <line x1="1000" y1="685" x2="1100" y2="685" class="legend-edge"></line>
+        <text transform="translate(1050,725)">Recommended</text>
+        <line x1="1000" y1="745" x2="1100" y2="745" class="legend-edge opt-edge"></line>
+        <text transform="translate(1050,785)">Co req/rec</text>
+        <line x1="1000" y1="795" x2="1100" y2="795" class="legend-edge double-edge"></line>
+        <line x1="1000" y1="815" x2="1100" y2="815" class="legend-edge opt-edge double-edge"></line>
+      </svg>
+    </div>
+    <p> Disclaimer: This course map does not accurately reflect the classes/background you need to take a course; all and only possible prerequisites in Statistics/Data Science will be highlighted when using this course map. </p>
+    <p> Special thanks to Professors X, X, and our undergrad advisors Denise and Natalie for feedback! Also thanks to the Fall 2020 SUSA team for the imagining of this map.</p>
+    <p> Designed and implemented by Edward Chang. </p>
+  </div>
+</div>
+
+<script type="text/javascript" src="course_map.js"></script>
+</body>
+</html>

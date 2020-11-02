@@ -62,9 +62,9 @@ def resources():
     return susa_render('resources.html', courses=get_groupings(courses),
     useful_links=get_groupings(useful_links), other_links=get_groupings(other_links))
 
-@app.route('/course-map')
-def course_map():
-    return susa_render('course_map.html')
+#@app.route('/course-map')
+#def course_map():
+#    return susa_render('course_map.html')
 
 @app.route('/apply')
 def apply():
