@@ -86,6 +86,10 @@ def sgup_apply():
 def mailing_list():
     return redirect('https://groups.google.com/a/lists.berkeley.edu/forum/#!managemembers/susa/join')
 
+@app.route('/subscribe')
+def subscribe():
+    return susa_render('subscribe.html')
+
 # Error pages
 @app.errorhandler(403)
 def not_authorized(e):

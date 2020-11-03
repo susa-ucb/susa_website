@@ -43,7 +43,7 @@
                             {{ Markup(member.summary) }}
                             </div>
                         </div>
-                        <div class="summary-container" onclick="pand({{ member.id }})" id="sum-contain-{{ member.id }}">
+                        <div class="summary-container" onclick="pand({{ member.id }})" id="sum-contain-{{ member.id }}" title="Click to expand/collapse details about {{ member.name }}.">
                             <ol class="attributes">
                                 <li>> summary({{ member.name.split()[0].lower() }})</li>
                                 <span class="summarized" id="summarized-{{ member.id }}">

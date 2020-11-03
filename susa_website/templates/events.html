@@ -62,11 +62,11 @@
     <div id = "info">
         {{ Markup(about_events) }}
         <h1>Upcoming Events</h1>
-        <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href= "https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ">calendar</a>.</p>
+        <p> You can find a list of non-recurring upcoming events below and plan accordingly. If you want to add a calendar to your own Google calendar collection, here is the <a href="https://calendar.google.com/calendar/b/3?cid=ajM2cG9hNmxlbGNzZnBnY2FkZ3FrNGRqYm9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ" title="Link to add our Google Calendar">calendar</a>.</p>
         <ol class='event-list'>
             {% for event in upcoming %}
             <li class='event-item' id="event-{{ event.id }}">
-                <a class='item-listing' href="javascript:void(0)" onclick="pand('{{ event.id }}')">
+                <a class='item-listing' href="javascript:void(0)" onclick="pand('{{ event.id }}')" title="Click to expand/collapse this event.">
                     <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
                 </a>
@@ -79,10 +79,10 @@
                         <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc}> {loc} </a>'.format(loc=event.location)) }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc} title="Go to the url this event is located at."> {loc} </a>'.format(loc=event.location)) }}</li>
                         {% endif %}
                         {% if event.fb_link %}
-                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event.">
                             <i class="fab fa-facebook-square"></i> Facebook Link
                         </a></li>
                         {% endif %}
@@ -96,7 +96,7 @@
         <ol class="event-list">
             {% for event in past %}
             <li class='event-item' id="event-{{ event.id }}">
-                <a href="javascript:void(0)" class='item-listing' onclick="pand('{{ event.id }}')">
+                <a href="javascript:void(0)" class='item-listing' onclick="pand('{{ event.id }}')" title="Click to expand/collapse this event.">
                     <i class="fa fa-calendar-day" aria-hidden="true"></i> &nbsp; {{ format_date(event.event_date) }}: {{ event.event_name }}
                     <span id="button-{{ event.id }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i> </span>
                 </a>
@@ -109,10 +109,10 @@
                         <li><i class="fa fa-question-circle" aria-hidden="true"></i> What: {{ Markup(event.description) }}</li>
                         {% endif %}
                         {% if event.location %}
-                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc}> {loc} </a>'.format(loc=event.location)) }}</li>
+                        <li><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Where: {{ event.location if event.location[:4] != 'http' else Markup('<a href={loc} title="Go to the url this event is located at."> {loc} </a>'.format(loc=event.location)) }}</li>
                         {% endif %}
                         {% if event.fb_link %}
-                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event">
+                        <li><a href="{{ event.fb_link }}" title="Go to the Facebook event.">
                             <i class="fab fa-facebook-square"></i> Facebook Link
                         </a></li>
                         {% endif %}
@@ -120,7 +120,7 @@
                         <li><ul>
                             {% for resource in conv_resource_list(event.resources) %}
                             <li class='resource-item'>
-                                <a href="{{ resource.link if resource.link[:4] == 'http' else '/static/resources/{}'.format(resource.link) }}"> {{ resource.label }} </a>
+                                <a href="{{ resource.link if resource.link[:4] == 'http' else '/static/resources/{}'.format(resource.link) }}" title="Access {{ resource.label }}"> {{ resource.label }} </a>
                             </li>
                             {% endfor %}
                         </ul></li>

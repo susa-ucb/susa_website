@@ -13,9 +13,9 @@
     <div id="error">
         <h1>{{ error.desc }}</h1>
         <p>{{ error.exp }}</p>
-        <p>You will be redirected to the homepage in 7 seconds. If the page doesn't change, click <a href='/'>here</a> to redirect manually</p>
+        <p>You will be redirected to the homepage in 7 seconds. If the page doesn't change, click <a href='/' title="Return to the main page.">here</a> to redirect manually</p>
         <p>You may also click the handy link below to go the last page you visited</p>
-        <a id='back'>Back</a>
+        <a id='back' title="Return to the last page you visited.">Back</a>
     </div>
     <script>
         window.setTimeout(function(){

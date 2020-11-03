@@ -59,33 +59,33 @@
                 <path class="logo-text" d="M737.21,227.43c19.31.75,37.77,4.22,54.85,13.49a83,83,0,0,1,23,18.88c4.56,5.23,4.42,6.9-.76,11-4.27,3.4-8.72,6.6-13.28,9.58-5.76,3.77-6.52,3.87-11.33-1.57-22.88-25.88-51.44-28.54-82-18.87-38.95,12.33-43.28,50-32.87,74.74,4,9.48,12,15.8,20.36,21.32,11.67,7.7,24.85,12,38.12,15.9,16.64,4.91,33.16,9.84,49,17.28,55.78,26.23,49.67,96.93,22.41,125.75-21.22,22.44-47.62,30.91-77.31,30.61-21.38-.21-42.06-4.73-61.27-14.84-11.91-6.28-21.32-15.39-29.91-25.45-4-4.71-3.67-6.42,1.38-10.13,4.4-3.22,9-6.14,13.59-9.15,8.33-5.5,8.57-5.64,14.22,2.34,9.74,13.76,22.94,22.37,39,26.64,24.55,6.54,47.67,3.8,68.89-11.18,24.48-17.27,34.08-65.34-4.51-86.55-12.76-7-26.51-11.5-40.34-15.72-13.54-4.13-27-8.62-39.83-14.49-30.9-14.07-47.29-37.38-48.49-72.21-1.38-40.25,22.85-69.33,57.49-80.73C710.47,229.83,723.8,228,737.21,227.43Z"/>
             </svg>
         </a>
-        <a class = "nav-bar-toggle" href="javascript:void(0);" onclick="dropDown()">
+        <a class = "nav-bar-toggle" href="javascript:void(0);" onclick="dropDown()" title="Reveal the navigation bar links.">
             <i class="fas fa-bars" style = "font-size: 2em; color: black;"></i>
         </a>
         <ul id = "nav-links">
             <li>
-                <a href = "/team" class="nav-link" title="Meet our team!">
+                <a href = "/team" class="nav-link" title="Meet our team.">
                     OUR TEAM
                 </a>
             </li>
             <li>
-                <a href = "/events" class="nav-link" title="Go to the events page">
+                <a href = "/events" class="nav-link" title="Go to the events page.">
                     EVENTS
                 </a>
             </li>
             <li>
-                <a href = "/resources" class="nav-link" title="Go to the resources page">
+                <a href = "/resources" class="nav-link" title="Go to the resources page.">
                     RESOURCES
                 </a>
             </li>
             <li>
-                <a href="/apply" class="nav-link" title="Join our officer team">
+                <a href="/apply" class="nav-link" title="Join our officer team.">
                     APPLY
                 </a>
             </li>
             {% if logged_in %}
             <li>
-                <a href = "/admin" title="Admin Panel" class='nav-link admin-ind'>
+                <a href = "/admin" title="Admin Panel" class='nav-link admin-ind' title="Go to the admin panel.">
                     ADMIN PANEL
                 </a>
             </li>
@@ -102,33 +102,33 @@
                     <li><h2> Site map </h2></li>
                     {% if logged_in %}
                     <li class = "foot-link admin-ind-cont">
-                        <a href = "/admin" title="Admin Panel" class='admin-ind'>
+                        <a href = "/admin" title="Admin Panel" class='admin-ind' title="Go to the admin panel.">
                             ADMIN PANEL
                         </a>
                     </li>
                     {% endif %}
                     <li class = "foot-link">
-                        <a href = "/" title="Return to main page">
+                        <a href = "/" title="Return to main page.">
                             <i class="fas fa-home" aria-hidden="true"></i>&nbsp;Home
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href = "/team" title="Meet our team!">
+                        <a href = "/team" title="Meet our team.">
                             <i class="fas fa-users" aria-hidden="true"></i>&nbsp;Our team
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href = "/events" title="Go to the events page">
+                        <a href = "/events" title="Go to the events page.">
                             <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;Events
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href = "/resources" title="Go to the resources page">
+                        <a href = "/resources" title="Go to the resources page.">
                             <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Resources
                         </a>
                     </li>
                     <li class="foot-link">
-                        <a href="/apply" title="Join our officer team">
+                        <a href="/apply" title="Join our officer team.">
                             <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Apply
                         </a>
                     </li>
@@ -137,9 +137,9 @@
             <address class = "column" id = "middle">
                 <ul>
                     <li><h2> Email </h2></li>
-                    <li class = "foot-link"><a href = "mailto:contact@susa.berkeley.edu" title="Send an email to our team!">Our Team</a></li>
+                    <li class = "foot-link"><a href = "mailto:contact@susa.berkeley.edu" title="Send an email to our team.">Our Team</a></li>
                     {% if footer_emails %}{% for email in footer_emails %}
-                    <li class = "foot-link"><a href = "mailto:{{email.email}}" title="Send an email to our {{email.role}}!">{{email.role}}</a></li>
+                    <li class = "foot-link"><a href = "mailto:{{email.email}}" title="Send an email to our {{email.role}}.">{{email.role}}</a></li>
                     {% endfor %}{% endif %}
                 </ul>
             </address>
@@ -147,22 +147,27 @@
                 <ul>
                     <li><h2>Follow Us!</h2></li>
                     <li class = "foot-link">
-                        <a href="https://www.facebook.com/susa.berkeley/" title="Go to our Facebook page">
+                        <a href="/subscribe" title="Subscribe to our mailing list.">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Mailing List
+                        </a>
+                    </li>
+                    <li class = "foot-link">
+                        <a href="https://www.facebook.com/susa.berkeley/" title="Go to our Facebook page.">
                             <i class="fab fa-facebook-square" aria-hidden="true"></i>&nbsp;Facebook
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href="https://github.com/susa-ucb" title="Go to our GitHub Organization">
+                        <a href="https://github.com/susa-ucb" title="Go to our GitHub Organization.">
                             <i class="fab fa-github-square" aria-hidden="true"></i>&nbsp;GitHub
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href="https://discord.com/invite/Am8yXHF" title="Join our Discord server">
+                        <a href="https://discord.com/invite/Am8yXHF" title="Join our Discord server.">
                             <i class="fab fa-discord" aria-hidden="true"></i>&nbsp;Discord
                         </a>
                     </li>
                     <li class = "foot-link">
-                        <a href="https://www.ocf.berkeley.edu" title="Go to the OCF main page">
+                        <a href="https://www.ocf.berkeley.edu" title="Go to the OCF main page.">
                             <img src="/static/images/ocf-hosted-penguin-dark.svg" alt="Hosted by the OCF" style="border: 0;" alt = "OCF Logo"/>
                         </a>
                     </li>

@@ -26,7 +26,7 @@
         <h2>{{ ['Useful Links', 'Courses', 'Other Links'][i] }}</h2>
         <ul>
             {% for group in [useful_links, courses, other_links][i] %}
-            <li class="category"><a class="category-label" href="javascript:void(0)" onclick="pand('{{ group.category }}')">{{ group.category }}
+            <li class="category"><a class="category-label" href="javascript:void(0)" onclick="pand('{{ group.category }}')" title="Click to expand/collapse this category.">{{ group.category }}
                 <span id="button-{{ group.category }}" class="pand-button"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
             </a>
                 <div class="link-container" id="group-{{ group.category }}">
@@ -34,7 +34,7 @@
                         {% for link in group.link_list %}
                         <li class="resource">
                             <a href="{{
-                                link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}">
+                                link.link if link.link[:4] == 'http' else '/static/resources/{}'.format(link.link) }}" title="Access {{ link.label }}.">
                                 {{ link.label }}
                             </a>
                         </li>
