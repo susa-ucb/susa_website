@@ -141,18 +141,13 @@ class Category extends Node {
   }
 }
 
-class Element extends Node {
-  constructor(label, parents, children, fetuses, position, categories, department) {
-    super(label, position);
+class Articulation extends Node {
+  constructor(label, parents, children, fetuses, position) {
+    super(label, position)
     this.parents = parents;
     this.children = children;
     this.fetuses = fetuses;
-    this.categories = categories;
-    this.department = department;
   }
-
-  getCategories() { return this.categories; }
-  getDepartment() { return this.department; }
 
   getParents(map) {
     var parentEls = []
@@ -176,10 +171,43 @@ class Element extends Node {
   }
   getFetuses() { return this.fetuses; }
 
+  legHighlight(color) { super.highlight(color); }
+  legUnHighlight(color) { super.unHighlight(color); }
+
+  highlight(color) {
+    if (typeof color == "undefined") {
+      document.getElementById(this.getID()).classList.add('highlightSquare');
+    } else {
+      document.getElementById(this.getID()).classList.add('highlightSquare');
+    }
+  }
+  unHighlight(color) {
+    if (typeof color == "undefined") {
+      document.getElementById(this.getID()).classList.remove('highlightSquare');
+    } else {
+      document.getElementById(this.getID()).classList.remove('highlightSquare');
+    }
+  }
+
   highlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.add('highlightEdge');
   }
-  highlight(color) { super.highlight(color); }
+  unHighlightEdge(parent) {
+    document.getElementById(parent.getID()+this.getID()).classList.remove('highlightEdge');
+  }
+}
+
+class Element extends Articulation {
+  constructor(label, parents, children, fetuses, position, categories, department) {
+    super(label, parents, children, fetuses, position);
+    this.categories = categories;
+    this.department = department;
+  }
+
+  getCategories() { return this.categories; }
+  getDepartment() { return this.department; }
+
+  highlight(color) { super.legHighlight(color); }
   highlightChildren(map) {
     var children = this.getChildren(map);
     for (child in children) {
@@ -215,10 +243,7 @@ class Element extends Node {
     this.highlightParents(map, this);
   }
 
-  unHighlight(color) { super.unHighlight(color); }
-  unHighlightEdge(parent) {
-    document.getElementById(parent.getID()+this.getID()).classList.remove('highlightEdge');
-  }
+  unHighlight(color) { super.legUnHighlight(color); }
   unHighlightChildren(map) {
     var children = this.getChildren(map);
     var child;
