@@ -1,7 +1,17 @@
 #guide-container {
+  width: 95vw;
   display: flex;
   flex-direction: row;
   padding-right: 1em;
+}
+
+.course-section {
+  border-top: 3px solid black;
+}
+
+.course-heading {
+  padding-bottom: 1em;
+  border-bottom: 3px solid #EEE;
 }
 
 #course-map {
