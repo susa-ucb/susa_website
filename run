@@ -1,0 +1,6 @@
+#!/bin/bash -e
+. ~/susa_website/venv/bin/activate
+cd ~/susa_website
+PYTHONPATH=~/susa_website:$PYTHONPATH \
+    exec gunicorn -w 2 -b unix:/srv/apps/$(whoami)/$(whoami).sock \
+    --log-file - susa_website:app
