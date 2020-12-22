@@ -166,6 +166,13 @@ class Articulation extends Node {
     this.fetuses = fetuses;
   }
 
+  isArt(){
+    return true;
+  }
+
+  getCategories() { return []; }
+  getDepartment() { return [];}
+
   getParents(map) {
     var parentEls = []
     for (el in map) {
@@ -188,64 +195,66 @@ class Articulation extends Node {
   }
   getFetuses() { return this.fetuses; }
 
-  legHighlight(color) { super.highlight(color); }
-  legUnHighlight(color) { super.unHighlight(color); }
-
-  highlight(color) {
-    if (typeof color == "undefined") {
-      document.getElementById(this.getID()).classList.add('highlightSquare');
-    } else {
-      document.getElementById(this.getID()).classList.add('highlightSquare');
-    }
-  }
-  unHighlight(color) {
-    if (typeof color == "undefined") {
-      document.getElementById(this.getID()).classList.remove('highlightSquare');
-    } else {
-      document.getElementById(this.getID()).classList.remove('highlightSquare');
-    }
-  }
-
   highlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.add('highlightEdge');
   }
   unHighlightEdge(parent) {
     document.getElementById(parent.getID()+this.getID()).classList.remove('highlightEdge');
   }
-}
 
-class Element extends Articulation {
-  constructor(label, parents, children, fetuses, position, categories, department) {
-    super(label, parents, children, fetuses, position);
-    this.categories = categories;
-    this.department = department;
-  }
-
-  getCategories() { return this.categories; }
-  getDepartment() { return this.department; }
-
-  highlight(color) { super.legHighlight(color); }
-  highlightChildren(map) {
+  highlightChildren(map, ref) {
     var children = this.getChildren(map);
-    for (child in children) {
-      var child = children[child];
-      child.highlight('Blue');
-      child.highlightEdge(this);
+    if (!children.includes(ref)) {
+      for (child in children) {
+        var child = children[child];
+        if (child.isArt()) {
+          child.highlight();
+          child.highlightChildren(els, ref);
+        } else {
+          child.highlight('Blue');
+        }
+        child.highlightEdge(this);
+      }
     }
   }
-  highlightParents(map, referred) {
+  highlightParents(map) {
     var parents = this.getParents(map);
     for (parent in parents) {
       var parent = parents[parent];
-      parent.highlight('Green');
-      if (referred != parent) {
-      parent.highlightParents(map, referred);
-    } else {
-      console.log("conflict", referred, parent);
-    }
+      if (parent.isArt()) {
+        parent.highlight();
+      } else {
+        parent.highlight('Green');
+      }
+      parent.highlightParents(els);
       this.highlightEdge(parent);
     }
   }
+
+  unHighlightChildren(map) {
+    var children = this.getChildren(map);
+    var child;
+    for (child in children) {
+      var child = children[child];
+      if (child.isArt()) {
+        child.unHighlight();
+        child.unHighlightChildren(els);
+      } else {
+        child.unHighlight('Blue');
+      }
+      child.unHighlightEdge(this);
+    }
+  }
+  unHighlightParents(map) {
+    var parents = this.getParents(map);
+    for (parent in parents) {
+      var parent = parents[parent];
+      parent.unHighlight('Green');
+      parent.unHighlightParents(map);
+      this.unHighlightEdge(parent);
+    }
+  }
+
   highlightAll(map) {
     for (el in map) {
       document.getElementById(map[el].getID()).classList.add('focus');
@@ -255,33 +264,20 @@ class Element extends Articulation {
     for (i = 0; i < edges.length; i++) {
       edges[i].classList.add('focus');
     }
-    this.highlight('Orange');
-    this.highlightChildren(map);
-    this.highlightParents(map, this);
-  }
-
-  unHighlight(color) { super.legUnHighlight(color); }
-  unHighlightChildren(map) {
-    var children = this.getChildren(map);
-    var child;
-    for (child in children) {
-      var child = children[child];
-      child.unHighlight('Blue');
-      child.unHighlightEdge(this);
-    }
-  }
-  unHighlightParents(map, referred) {
-    var parents = this.getParents(map);
-    for (parent in parents) {
-      var parent = parents[parent];
-      parent.unHighlight('Green');
-      if (referred != parent) {
-      parent.unHighlightParents(map, parent);
-      } else {
-        console.log("conflict", referred, parent);
+    if (this.isArt()) {
+      this.highlight();
+      var parents = this.getParents(map);
+      for (parent in parents) {
+        var parent = parents[parent];
+        parent.highlight('Orange');
+        parent.highlightParents(map);
+        this.highlightEdge(parent);
       }
-      this.unHighlightEdge(parent);
+    } else {
+      this.highlight('Orange');
+      this.highlightParents(map);
     }
+    this.highlightChildren(map, this);
   }
   unHighlightAll(map) {
     for (el in map) {
@@ -292,10 +288,60 @@ class Element extends Articulation {
     for (i = 0; i < edges.length; i++) {
       edges[i].classList.remove('focus');
     }
-    this.unHighlight('Orange');
+    if (this.isArt()) {
+      this.unHighlight();
+      var parents = this.getParents(map);
+      for (parent in parents) {
+        var parent = parents[parent];
+        parent.unHighlight('Orange');
+        parent.unHighlightParents(map);
+        this.unHighlightEdge(parent);
+      }
+    } else {
+      this.unHighlight('Orange');
+      this.unHighlightParents(map);
+    }
     this.unHighlightChildren(map);
-    this.unHighlightParents(map, this);
   }
+
+  genNode() {
+    return `<g class='node' onclick='curActive.unHighlightAll(els);curActive=els[${els.indexOf(this)}];curActive.highlightAll(els); curActive.showDetails();'>` +
+    //onmouseout='els[${els.indexOf(this)}].unHighlightAll(els); els[${els.indexOf(this)}].unShowDetails()'>` +
+    `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice art"> </circle>` +
+    "</g>";
+  }
+
+  genEdges(map) {
+    var edges = [];
+    var children = this.getChildren(map)
+    for (child in children) {
+      var child = children[child];
+      var ends = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
+      var edgeClass = "edge";
+      if (this.getFetuses().includes(child.getLabel())) {
+        edgeClass += " opt-edge"
+      }
+      var edge = `<line x1="${this.getX()}" y1="${this.getY()}" x2="${ends[2]}" y2="${ends[3]}"` +
+      `id=${this.getID() + child.getID()} class="${edgeClass}"></line>`;
+      edges.push(edge);
+    }
+    return edges;
+  }
+}
+
+class Element extends Articulation {
+  constructor(label, parents, children, fetuses, position, categories, department) {
+    super(label, parents, children, fetuses, position);
+    this.categories = categories;
+    this.department = department;
+  }
+
+  isArt() {
+    return false;
+  }
+
+  getCategories() { return this.categories; }
+  getDepartment() { return this.department; }
 
   genNode() {
     return `<g class='node' onclick='curActive.unHighlightAll(els);curActive=els[${els.indexOf(this)}];curActive.highlightAll(els); curActive.showDetails();'>` +
@@ -310,13 +356,18 @@ class Element extends Articulation {
     var children = this.getChildren(map)
     for (child in children) {
       var child = children[child];
-      var ends = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
       var edgeClass = "edge";
-      if (this.getFetuses().includes(child.getLabel())) {
-        edgeClass += " opt-edge"
+      if (child.isArt()) {
+        var edge = `<line x1="${this.getX()}" y1="${this.getY()}" x2="${child.getX()}" y2="${child.getY()}"` +
+        `id=${this.getID() + child.getID()} class="${edgeClass} art"></line>`
+      } else {
+        var ends = scaleSegment(this.getX(), this.getY(), child.getX(), child.getY());
+        if (this.getFetuses().includes(child.getLabel())) {
+          edgeClass += " opt-edge"
+        }
+        var edge = `<line x1="${ends[0]}" y1="${ends[1]}" x2="${ends[2]}" y2="${ends[3]}"` +
+        `id=${this.getID() + child.getID()} class="${edgeClass}"></line>`;
       }
-      var edge = `<line x1="${ends[0]}" y1="${ends[1]}" x2="${ends[2]}" y2="${ends[3]}"` +
-      `id=${this.getID() + child.getID()} class="${edgeClass}"></line>`;
       edges.push(edge);
     }
     return edges;
@@ -365,7 +416,7 @@ var els = [
   new Element("1A", [], ["C131A", "1B", "20", "88"], [], [0, 0], ["Lower Div Req"], "Math"),
   new Element("1B", ["1A"], ["89A","53", "54", "55", "134", "C140"], ["20"], math_1a_circ(-3/8), ["Lower Div Req"], "Math"),
   new Element("53", ["1B"], ["134", "C140", "154"], ["134", "C140"], math_1b_circ(13/8), ["Lower Div Req"], "Math"),
-  new Element("54", ["1B"], ["135", "C100", "C102", "C140"], [], math_1b_circ(15/8), ["Lower Div Req"], "Math"),
+  new Element("54", ["1B"], ["Linear Algebra"], [], math_1b_circ(15/8), ["Lower Div Req"], "Math"),
   new Element("55", ["1B"], ["154"], ["154"], math_1b_circ(11/8), [], "Math"),
   new Element("C8", [], ["C131A", "89A","C100", "C140", "88"], [], [425, 25], ["Lower Div Req"], "Data"),
   new Element("20", ["1A"], ["C131A", "C140"], [], math_1a_circ2(0), ["Lower Div Req"], "Statistics"),
@@ -373,24 +424,26 @@ var els = [
   new Element("33B", ["61A"], [], [], [750, 100], ["Programming", "Core Class"], "Statistics"),
   new Element("61A", [], ["C100", "33B", "C140"], [], [600, 0], ["Programming"]),
   new Element("88", ["1A", "C8"], ["C8"], [], data_c8_circ(5/4), [], "Statistics"),
-  new Element("89A", ["1B", "C8"], ["135", "C100", "C102", "C140", "C8"], ["C8"], math_1b_circ(17/8), [], "Statistics"),
-  new Element("C100", ["61A", "C8", "54", "89A"], ["C102", "C140", "54", "89A"], [], data_c8_circ(-7/16), ["Core Class"], "Data"),
-  new Element("C102", ["C100", "134", "54", "C140", "89A"], ["151A"], [], data_c100_circ(12.5/8), ["Elective"], "Data"),
+  new Element("89A", ["1B", "C8"], ["Linear Algebra", "C8"], ["C8"], math_1b_circ(17/8), [], "Statistics"),
+  new Element("C100", ["61A", "C8", "Linear Algebra"], ["C102", "C140", "Linear Algebra"], [], data_c8_circ(-7/16), ["Core Class"], "Data"),
+  new Element("C102", ["C100", "Linear Algebra", "Upper Division Probability"], ["151A"], [], data_c100_circ(12.5/8), ["Elective"], "Data"),
   new Element("C131A", ["33A", "133", "C8", "20", "1A"], ["33A", "133"], ["33A", "133"], data_c8_circ(-3/16), [], "Data"),
   new Element("133", [], ["C131A", "159", "151A", "152", "153", "158", "135"], ["C131A", "158", "152", "151A", "153","135"], [525, 500], ["Programming", "Core Class"], "Statistics"),
-  new Element("134", ["53", "1B"], ["135", "150", "155", "C102", "152", "153"], [], math_1b_circ2(12/8), ["Lower Div Req", "Core Class"], "Statistics"),
-  new Element("135", ["54", "89A", "134", "C140", "133"], ["151A", "152", "153", "154", "156", "157", "158", "159", "133"], ["152", "153", "133"], [325, 500], ["Lower Div Req", "Core Class"], "Statistics"),
-  new Element("C140", ["54", "53", "C8", "C100", "20", "61A", "89A", "1B"], ["135", "150", "155", "C102", "54", "89A"], [], data_c100_circ(9.5/8), ["Lower Div Req", "Core Class"], "Data"),
-  new Element("150", ["134", "C140"], [], [], elective_circ(9.7/8), ["Elective"], "Statistics"),
+  new Element("134", ["53", "1B"], ["Upper Division Probability"], [], math_1b_circ2(12/8), ["Lower Div Req", "Core Class"], "Statistics"),
+  new Element("135", ["Linear Algebra", "Upper Division Probability", "133"], ["151A", "152", "153", "154", "156", "157", "158", "159", "133"], ["152", "153", "133"], [325, 500], ["Lower Div Req", "Core Class"], "Statistics"),
+  new Element("C140", ["Linear Algebra", "53", "C8", "C100", "20", "61A", "1B"], ["Upper Division Probability", "Linear Algebra"], [], data_c100_circ(9.5/8), ["Lower Div Req", "Core Class"], "Data"),
+  new Element("150", ["Upper Division Probability"], [], [], elective_circ(9.7/8), ["Elective"], "Statistics"),
   new Element("151A", ["135", "C102", "133"], [], [], elective_circ(10.5/8), ["Elective"], "Statistics"),
-  new Element("152", ["135", "133", "134"], [], [], elective_circ(10.9/8), ["Elective"], "Statistics"),
-  new Element("153", ["134", "133", "135"], [], [], elective_circ(11.3/8), ["Elective"], "Statistics"),
+  new Element("152", ["135", "133", "Upper Division Probability"], [], [], elective_circ(10.9/8), ["Elective"], "Statistics"),
+  new Element("153", ["Upper Division Probability", "133", "135"], [], [], elective_circ(11.3/8), ["Elective"], "Statistics"),
   new Element("154", ["135", "53", "55"], [], [], elective_circ(11.7/8), ["Elective"], "Statistics"),
-  new Element("155", ["134", "C140"], [], [], elective_circ(10.1/8), ["Elective"], "Statistics"),
+  new Element("155", ["Upper Division Probability"], [], [], elective_circ(10.1/8), ["Elective"], "Statistics"),
   new Element("156", ["135"], [], [], elective_circ(12.1/8), ["Elective"], "Statistics"),
   new Element("157", ["135"], [], [], elective_circ(12.5/8), ["Elective"], "Statistics"),
   new Element("158", ["135", "133"], ["135"], [], elective_circ(12.9/8), ["Elective"], "Statistics"),
-  new Element("159", ["135", "133"], [], [], elective_circ(13.3/8), ["Elective"], "Statistics")
+  new Element("159", ["135", "133"], [], [], elective_circ(13.3/8), ["Elective"], "Statistics"),
+  new Articulation("Upper Division Probability", ["134", "C140"], ["135", "150", "155", "C102", "152", "153"], [], [200, 500]),
+  new Articulation("Linear Algebra", ["54", "89A"], ["135", "C100", "C102", "C140"], [], [250, 100])
 ]
 
 var div = document.getElementById("courses");

@@ -1,8 +1,29 @@
 #guide-container {
-  width: 95vw;
-  display: flex;
-  flex-direction: row;
-  padding-right: 1em;
+  min-height: 900px;
+  width: 1880px;
+  left: 50%;
+  margin-left: -940px;
+  padding-right: 10px;
+}
+
+@media screen and (max-width: 1915px) {
+  #guide-container {
+    left: 0;
+    margin-left: 0;
+  }
+}
+
+#course-map {
+  z-index: 9;
+  float: left;
+}
+
+#course-info {
+  padding-left: 3em;
+  padding-right: 3em;
+  height: 850px;
+  overflow: auto;
+  border-left: 3px solid #EEE;
 }
 
 .course-section {
@@ -14,18 +35,7 @@
   border-bottom: 3px solid #EEE;
 }
 
-#course-map {
-  z-index: 9;
-}
 
-#course-info {
-  max-height: 850px;
-  overflow: auto;
-  padding-right: 1em;
-  margin-left: -20px;
-  padding-left: 20px;
-  border-left: 3px solid #EEE;
-}
 
 text {
   text-anchor: middle;
@@ -44,6 +54,10 @@ line {
   stroke-dasharray: 7;
 }
 
+line.art {
+  marker-end: none;
+}
+
 .legend-edge {
   stroke: black;
   stroke-width: 1.5;
@@ -59,6 +73,12 @@ circle {
   opacity: 1;
   stroke: rgb(0,0,0,0);
 }
+
+circle.art{
+  r: 10 !important;
+  fill: black !important;
+}
+
 .category circle { r: 20 !important; }
 .department circle { r: 20 !important; }
 
@@ -80,7 +100,7 @@ circle {
 .Statistics { fill: #CC79A7; }
 .Data { fill: #895BF8; }
 .Math { fill: #5BE241; }
-.highlightOrange { fill: #E69F00; }
+.highlightOrange { fill: #E69F00 !important;}
 .highlightBlue { fill: #56B4E9; }
 .highlightGreen { fill: #009E73; }
 .highlightYellow{ fill: #F0E442; }

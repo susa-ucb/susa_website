@@ -64,5 +64,8 @@ catalogue['LowerDivReq'] = Course('LowerDivReq', None, 'Statistics Major Lower D
 catalogue['Elective'] = Course('Elective', None, 'Statistics Major 15X Electives', None, 'These are math courses related to statistics.', None)
 catalogue['Programming'] = Course('Programming', None, 'Programming Courses', None, 'These are programming courses related to statistics.', None)
 
+catalogue['LinearAlgebra'] = Course('LinearAlgebra', None, 'Linear Algebra Courses', None, 'These are linear algebra courses.', None)
+catalogue['UpperDivisionProbability'] = Course('UpperDivisionProbability', None, 'Statistics Upper-Division Probability Courses', None, 'These are upper-div probability courses.', None)
+
 # convert our dictionary to a pandas dataframe
 course_df = DataFrame.from_dict(data=catalogue, orient='index')
