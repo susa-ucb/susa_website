@@ -83,10 +83,6 @@ def sgup():
 def sgup_apply():
     return redirect('https://forms.gle/Mr77nHycbgBi6Mgx5')
 
-@app.route('/mailing-list')
-def mailing_list():
-    return redirect('https://groups.google.com/a/lists.berkeley.edu/forum/#!managemembers/susa/join')
-
 @app.route('/subscribe')
 def subscribe():
     return susa_render('subscribe.html')
