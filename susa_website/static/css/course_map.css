@@ -1,7 +1,20 @@
+#guide-container {
+  display: flex;
+  flex-direction: row;
+  padding-right: 1em;
+}
+
 #course-map {
-  left: 50%;
-  margin-left: -600px;
-  margin-right: 600px;
+  z-index: 9;
+}
+
+#course-info {
+  max-height: 850px;
+  overflow: auto;
+  padding-right: 1em;
+  margin-left: -20px;
+  padding-left: 20px;
+  border-left: 3px solid #EEE;
 }
 
 text {

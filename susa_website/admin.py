@@ -18,7 +18,7 @@ from wtforms.validators import DataRequired, NumberRange
 import os.path as op
 
 from . import secrets, app, db
-from .schema import Events, Team, Resources, ResourcesMapping, Contents
+from .schema import Events, Team, Resources, ResourcesMapping, Contents, Catalogue
 
 # Flask-login init
 login_manager = LoginManager()
@@ -61,7 +61,7 @@ class AdminIndex(AdminIndexView):
     @expose('/login', methods=('GET', 'POST'))
     def login_view(self):
         error = None
-        
+
         if request.method == 'POST':
             if (request.form['username'] == secrets['username']) and (request.form['password'] == secrets['password']):
                 user = User()
@@ -92,6 +92,9 @@ class OpStringField(StringField):
 
 class StringField(StringField):
     validators = [DataRequired()]
+
+class OpTextAreaField(TextAreaField):
+    pass
 
 class TextAreaField(TextAreaField):
     validators = [DataRequired()]
@@ -129,6 +132,18 @@ class ResourcesMappingView(AdminView):
     column_filters = ['type', 'category']
     column_editable_list = ['group_position']
     create_form = edit_form = ResourcesMappingForm
+
+class CatalogueForm(FlaskForm):
+    num = OpStringField("Num")
+    code = OpStringField("Code")
+    title = OpStringField("Title")
+    units = OpStringField("Units")
+    desc = OpTextAreaField("Description")
+    details = OpTextAreaField("Details")
+
+class CatalogueView(AdminView):
+    column_filters = ['code']
+    create_form = edit_form = CatalogueForm
 
 class EventsForm(FlaskForm):
     event_date = DateField("Event Date")
@@ -193,6 +208,7 @@ path = op.join(op.dirname(__file__), 'static')
 admin = Admin(app, name='SUSA', template_mode='bootstrap3', index_view=AdminIndex())
 admin.add_view(ResourcesView(Resources, db.session, category="Resources", name="Links"))
 admin.add_view(ResourcesMappingView(ResourcesMapping, db.session, category="Resources"))
+admin.add_view(CatalogueView(Catalogue, db.session, category='Resources', name='Course Map Info'))
 admin.add_view(EventsView(Events, db.session))
 admin.add_view(TeamView(Team, db.session))
 admin.add_view(ContentsView(Contents, db.session))

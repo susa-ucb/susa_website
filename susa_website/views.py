@@ -64,7 +64,8 @@ def resources():
 
 @app.route('/course-map')
 def course_map():
-    return susa_render('course_map.html')
+    catalogue = query_db('SELECT * FROM catalogue')
+    return susa_render('course_map.html', catalogue=catalogue)
 
 @app.route('/apply')
 def apply():

@@ -24,6 +24,9 @@ function scaleSegment(x1, y1, x2, y2) {
   return [x_1p, y_1p, x_2p, y_2p];
 }
 
+var defaultInfo = document.getElementById('default-info');
+var activeInfo = document.getElementById('active-info');
+
 class Node {
   constructor(label, position) {
     this.label = label;
@@ -49,6 +52,18 @@ class Node {
       document.getElementById(this.getID()).classList.remove('highlight', 'highlight' + color);
     }
   }
+
+  showDetails() {
+    var courseInfo = document.getElementById(`cat-${this.getID()}`).innerHTML;
+    activeInfo.innerHTML = courseInfo;
+    defaultInfo.classList.add('hidden');
+  }
+
+  unShowDetails() {
+    activeInfo.innerHTML = null;
+    defaultInfo.classList.remove('hidden');
+  }
+
 }
 
 class Department extends Node {
@@ -71,7 +86,7 @@ class Department extends Node {
     return departmentEls;
   }
 
-  highlightDepartment(map) {
+  highlightAll(map) {
     this.highlight();
     var departmentEls = this.getDepartment(map);
     for (el in departmentEls) {
@@ -79,7 +94,7 @@ class Department extends Node {
     }
   }
 
-  unHighlightDepartment(map) {
+  unHighlightAll(map) {
     this.unHighlight();
     var departmentEls = this.getDepartment(map);
     for (el in departmentEls) {
@@ -88,7 +103,8 @@ class Department extends Node {
   }
 
   genNode() {
-    return `<g class='node department' onmouseover='deps[${deps.indexOf(this)}].highlightDepartment(els)' onmouseout='deps[${deps.indexOf(this)}].unHighlightDepartment(els)'>` +
+    return `<g class='node department' onclick='curActive.unHighlightAll(els);curActive=deps[${deps.indexOf(this)}];curActive.highlightAll(els); curActive.showDetails();'>` +
+    //<g class='node department' onmouseover='deps[${deps.indexOf(this)}].highlightAll(els)' onmouseout='deps[${deps.indexOf(this)}].unHighlightAll(els)'>` +
     `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice ${this.getLabel()}"> </circle>` +
     `<text transform="translate(${this.getX()},${this.getY()-30})" >${this.getLabel()}</text>` +
     "</g>";
@@ -116,7 +132,7 @@ class Category extends Node {
     return categoryEls;
   }
 
-  highlightCategory(map) {
+  highlightAll(map) {
     this.highlight();
     var category = this.getCategory(map);
     for (el in category) {
@@ -124,7 +140,7 @@ class Category extends Node {
       el.highlight(this.color);
     }
   }
-  unHighlightCategory(map) {
+  unHighlightAll(map) {
     this.unHighlight();
     var category = this.getCategory(map);
     for (el in category) {
@@ -134,7 +150,8 @@ class Category extends Node {
   }
 
   genNode(map) {
-    return `<g class='node category' onmouseover='cats[${map.indexOf(this)}].highlightCategory(els)' onmouseout='cats[${map.indexOf(this)}].unHighlightCategory(els)'>` +
+    return `<g class='node category' onclick='curActive.unHighlightAll(els);curActive=cats[${map.indexOf(this)}];curActive.highlightAll(els); curActive.showDetails();'>` +
+    // <g class='node category' onmouseover='cats[${map.indexOf(this)}].highlightAll(els)' onmouseout='cats[${map.indexOf(this)}].unHighlightAll(els)'>` +
     `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice"> </circle>` +
     `<text transform="translate(${this.getX()},${this.getY() - 30})" >${this.getLabel()}</text>` +
     "</g>";
@@ -229,7 +246,7 @@ class Element extends Articulation {
       this.highlightEdge(parent);
     }
   }
-  highlightPath(map) {
+  highlightAll(map) {
     for (el in map) {
       document.getElementById(map[el].getID()).classList.add('focus');
     }
@@ -266,7 +283,7 @@ class Element extends Articulation {
       this.unHighlightEdge(parent);
     }
   }
-  unHighlightPath(map) {
+  unHighlightAll(map) {
     for (el in map) {
       document.getElementById(map[el].getID()).classList.remove('focus');
     }
@@ -281,7 +298,8 @@ class Element extends Articulation {
   }
 
   genNode() {
-    return `<g class='node' onmouseover='els[${els.indexOf(this)}].highlightPath(els)' onmouseout='els[${els.indexOf(this)}].unHighlightPath(els)'>` +
+    return `<g class='node' onclick='curActive.unHighlightAll(els);curActive=els[${els.indexOf(this)}];curActive.highlightAll(els); curActive.showDetails();'>` +
+    //onmouseout='els[${els.indexOf(this)}].unHighlightAll(els); els[${els.indexOf(this)}].unShowDetails()'>` +
     `<circle cx=${this.getX()} cy=${this.getY()} id=${this.getID()} class="vertice ${this.getDepartment()}"> </circle>` +
     `<text transform="translate(${this.getX()},${this.getY()+5})" >${this.getLabel()}</text>` +
     "</g>";
@@ -375,7 +393,7 @@ var els = [
   new Element("159", ["135", "133"], [], [], elective_circ(13.3/8), ["Elective"], "Statistics")
 ]
 
-let div = document.getElementById("courses");
+var div = document.getElementById("courses");
 
 for (dep in deps) {
   div.innerHTML += deps[dep].genNode(deps);
@@ -395,3 +413,5 @@ for (el in els) {
 for (el in els) {
   div.innerHTML += els[el].genNode();
 }
+
+var curActive = els[0];

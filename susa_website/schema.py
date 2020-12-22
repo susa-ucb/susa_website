@@ -44,3 +44,12 @@ class Contents(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     area = db.Column(db.String(50), nullable=False)
     text = db.Column(db.String(10000), nullable=False)
+
+class Catalogue(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    num = db.Column(db.String(25), nullable=True)
+    code = db.Column(db.String(25), nullable=True)
+    title = db.Column(db.String(50), nullable=True)
+    units = db.Column(db.String(10), nullable=True)
+    desc = db.Column(db.String(10000), nullable=True)
+    details = db.Column(db.String(10000), nullable=True)

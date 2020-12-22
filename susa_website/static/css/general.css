@@ -48,6 +48,10 @@ a:hover {
     background: linear-gradient(45deg, #003262, #FDB515);
 }
 
+.hidden {
+    display: none;
+}
+
 /*scrollbar stylings*/
 
 ::-webkit-scrollbar{
