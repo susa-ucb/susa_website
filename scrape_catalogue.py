@@ -1,3 +1,5 @@
+# A scraper for catalogue information for the SUSA course map
+
 # for getting webcontent
 from requests import get
 from bs4 import BeautifulSoup
@@ -6,14 +8,28 @@ from collections import namedtuple
 # for data frame construction
 from pandas import DataFrame
 
-Course = namedtuple('Course', 'id code title units desc details')
+############# SETUP
+# relevant department codes to our course map
+departments = ['compsci', 'math', 'stat']
 
-courses = {}
+# where to break our catalogue searching
+# choose by highest relevant course num
+break_courses = ['STAT 159', 'MATH 55', 'COMPSCI 61A']
+#############
 
+Course = namedtuple('Course', 'num code title units desc details')
+
+catalogue = {}
+
+# function to add our courses to COURSES based on department code
 def add_courses(department):
     url = 'http://guide.berkeley.edu/courses/{}/index.html'.format(department)
     r = get(url, allow_redirects = True)
     soup = BeautifulSoup(r.content, 'html.parser')
+
+    anchors = soup.findAll('a')
+    for anchor in anchors:
+        anchor.replaceWithChildren()
 
     courseblocks = soup.find_all(attrs = {'class': 'courseblock'})
 
@@ -30,12 +46,23 @@ def add_courses(department):
             desc += courseblock.find(attrs = {'class': ('deschide')}).text
         details = courseblock.find_all(attrs = {'class': 'course-section'})
         details = ''.join([str(detail) for detail in details])
-        courses[num] = Course(num, code, title, units, desc, details)
+        catalogue[num] = Course(num, code, title, units, desc, details)
         # break it just so that we don't do more than neccessary
-        if code == 'STAT 159' or code == 'MATH 55' or code == 'COMPSCI 61A':
+        if code in break_courses:
             break
 
-for department in ['compsci', 'math', 'stat']:
+# call function on all our department codes
+for department in departments:
     add_courses(department)
 
-course_df = DataFrame.from_dict(data=courses, orient='index')
+catalogue['Statistics'] = Course('Statistics', 'STAT', 'Statistics', None, 'These are statistics courses.', None)
+catalogue['Data'] = Course('Data', 'DATA', 'Data Science', None, 'These are data science courses.', None)
+catalogue['Math'] = Course('Math', 'MATH', 'MATHEMATICS', None, 'These are math courses.', None)
+
+catalogue['CoreClass'] = Course('CoreClass', None, 'Core Statistics Classes', None, 'These are core classes for the statistics major.', None)
+catalogue['LowerDivReq'] = Course('LowerDivReq', None, 'Statistics Major Lower Division Requirements', None, 'These are lower division requirements for the statistics major.', None)
+catalogue['Elective'] = Course('Elective', None, 'Statistics Major 15X Electives', None, 'These are math courses related to statistics.', None)
+catalogue['Programming'] = Course('Programming', None, 'Programming Courses', None, 'These are programming courses related to statistics.', None)
+
+# convert our dictionary to a pandas dataframe
+course_df = DataFrame.from_dict(data=catalogue, orient='index')
