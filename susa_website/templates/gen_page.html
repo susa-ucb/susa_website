@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page['title'] }} | SUSA {% endblock %}
+
+{% block head_css %}
+<link rel = "stylesheet" type = "text/css" href = "/static/css/resources.css">
+{% endblock head_css %}
+
+{% block content %}
+<div class = "text-container">
+    <div id = "text">
+        {{ Markup(page['contents']) }}
+    </div>
+</div>
+{% endblock %}

@@ -53,3 +53,16 @@ class Catalogue(db.Model):
     units = db.Column(db.String(10), nullable=True)
     desc = db.Column(db.String(10000), nullable=True)
     details = db.Column(db.String(10000), nullable=True)
+
+class Shortcuts(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    website_link = db.Column(db.String(100), nullable=False, unique=True)
+    desc = db.Column(db.String(100), nullable=True)
+    external_link = db.Column(db.String(200), nullable=False)
+
+class Pages(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    website_link = db.Column(db.String(100), nullable=False, unique=True)
+    title = db.Column(db.String(50), nullable=False)
+    desc = db.Column(db.String(100), nullable=True)
+    contents = db.Column(db.String(20000), nullable=False)

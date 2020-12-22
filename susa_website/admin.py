@@ -18,7 +18,7 @@ from wtforms.validators import DataRequired, NumberRange
 import os.path as op
 
 from . import secrets, app, db
-from .schema import Events, Team, Resources, ResourcesMapping, Contents, Catalogue
+from .schema import Events, Team, Resources, ResourcesMapping, Contents, Catalogue, Shortcuts, Pages
 
 # Flask-login init
 login_manager = LoginManager()
@@ -142,7 +142,9 @@ class CatalogueForm(FlaskForm):
     details = OpTextAreaField("Details")
 
 class CatalogueView(AdminView):
-    column_filters = ['code']
+    column_filters = ['num', 'code', 'title', 'units', 'desc', 'details']
+    column_searchable_list = ['num', 'code', 'title', 'units', 'desc', 'details']
+    column_editable_list = ['num', 'code', 'title', 'units']
     create_form = edit_form = CatalogueForm
 
 class EventsForm(FlaskForm):
@@ -196,6 +198,29 @@ class ContentsView(AdminView):
     column_editable_list = ['area', 'text']
     create_form = edit_form = ContentsForm
 
+class ShortcutsForm(FlaskForm):
+    website_link = StringField('Link on Website', description='i.e. https://susa.berkeley.edu/...')
+    desc = OpStringField('Description')
+    external_link = StringField('External Link', description='Where you want https://susa.berkeley.edu/... to go to')
+
+class ShortcutsView(AdminView):
+    column_searchable_list = ['website_link', 'desc', 'external_link']
+    column_filters = ['website_link', 'desc', 'external_link']
+    column_editable_list = ['website_link', 'external_link']
+    create_form = edit_form = ShortcutsForm
+
+class PagesForm(FlaskForm):
+    website_link = StringField('Link on Website', description='i.e. https://susa.berkeley.edu/...')
+    title = StringField('Title of Page', description='i.e. TITLE | SUSA')
+    desc = OpStringField('Description')
+    contents = TextAreaField('Content', description='Use HTML; content will be centered')
+
+class PagesView(AdminView):
+    column_searchable_list = ['website_link', 'title', 'desc', 'contents']
+    column_filters = ['website_link', 'title', 'desc', 'contents']
+    column_editable_list = ['website_link', 'title']
+    create_form = edit_form = PagesForm
+
 class Files(FileAdmin):
     def is_accessible(self):
         return current_user.is_authenticated
@@ -209,6 +234,8 @@ admin = Admin(app, name='SUSA', template_mode='bootstrap3', index_view=AdminInde
 admin.add_view(ResourcesView(Resources, db.session, category="Resources", name="Links"))
 admin.add_view(ResourcesMappingView(ResourcesMapping, db.session, category="Resources"))
 admin.add_view(CatalogueView(Catalogue, db.session, category='Resources', name='Course Map Info'))
+admin.add_view(PagesView(Pages, db.session, category='Create', name='Pages'))
+admin.add_view(ShortcutsView(Shortcuts, db.session, category='Create', name='Shortcut Links'))
 admin.add_view(EventsView(Events, db.session))
 admin.add_view(TeamView(Team, db.session))
 admin.add_view(ContentsView(Contents, db.session))

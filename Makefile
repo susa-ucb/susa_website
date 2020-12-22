@@ -31,7 +31,7 @@ debug:
 .SILENT:
 production:
 	( \
-	venv/bin/activate; \
+	source venv/bin/activate; \
 	FLASK_APP=susa_website FLASK_DEBUG=0 FLASK_ENV=production flask run; \
 	)
 

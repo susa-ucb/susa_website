@@ -5,15 +5,15 @@
 {% block head_css %}
 <link rel = "stylesheet" type = "text/css" href = "/static/css/events.css">
 <!-- Fullcalendar to display google calendar schedule -->
-<link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
-<link href='/static/fullcalendar/daygrid/main.css' rel='stylesheet' />
+<link href='/static/vendor/fullcalendar/core/main.css' rel='stylesheet' />
+<link href='/static/vendor/fullcalendar/daygrid/main.css' rel='stylesheet' />
 
-<script src='/static/fullcalendar/core/main.js'></script>
-<script src='/static/fullcalendar/google-calendar/main.js'></script>
-<script src='/static/fullcalendar/daygrid/main.js'></script>
+<script src='/static/vendor/fullcalendar/core/main.js'></script>
+<script src='/static/vendor/fullcalendar/google-calendar/main.js'></script>
+<script src='/static/vendor/fullcalendar/daygrid/main.js'></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -36,7 +36,7 @@
     });
 
     calendar.render();
-    });
+});
 
 </script>
 {% endblock %}
@@ -47,17 +47,17 @@
 </div>
 <div class = "info-container">
     <script>
-        function pand(id) {
-            var details = document.getElementById("details-"+id);
-            var button = document.getElementById("button-"+id);
-            if (details.className === "details") {
-                details.className += " expanded";
-                button.innerHTML = '<i class="fa fa-minus-square" aria-hidden="true"></i>';
-            } else {
-                details.className = "details";
-                button.innerHTML = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
-            }
+    function pand(id) {
+        var details = document.getElementById("details-"+id);
+        var button = document.getElementById("button-"+id);
+        if (details.className === "details") {
+            details.className += " expanded";
+            button.innerHTML = '<i class="fa fa-minus-square" aria-hidden="true"></i>';
+        } else {
+            details.className = "details";
+            button.innerHTML = '<i class="fa fa-plus-square" aria-hidden="true"></i>';
         }
+    }
     </script>
     <div id = "info">
         {{ Markup(about_events) }}
@@ -87,7 +87,7 @@
                         </a></li>
                         {% endif %}
                     </ul>
-            </div>
+                </div>
             </li>
             {% endfor %}
         </ol>

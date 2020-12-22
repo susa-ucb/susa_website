@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, url_for, flash, redirect, session, Markup
 from flask_login.utils import current_user
+from werkzeug.exceptions import abort
+import sys
 
 from . import app, db, secrets, query_db
 from .utils import get_groupings, conv_error_code, format_date, conv_email_list, conv_resource_list, format_time
@@ -67,25 +69,21 @@ def course_map():
     catalogue = query_db('SELECT * FROM catalogue')
     return susa_render('course_map.html', catalogue=catalogue)
 
-@app.route('/apply')
-def apply():
-    return redirect('https://forms.gle/cGm89VKiMEfix8SH7')
-
-@app.route('/sgsa-fireside')
-def fireside():
-    return redirect('https://forms.gle/QhnAMjpgPfAVzNGB8')
-
-@app.route('/sgup')
-def sgup():
-    return susa_render('sgup.html')
-
-@app.route('/sgup/apply')
-def sgup_apply():
-    return redirect('https://forms.gle/Mr77nHycbgBi6Mgx5')
-
 @app.route('/subscribe')
 def subscribe():
     return susa_render('subscribe.html')
+
+@app.route('/<path:website_link>')
+def link(website_link):
+    shortcut = query_db('SELECT * FROM shortcuts WHERE website_link="{}"'.format(website_link))
+    page = query_db('SELECT * FROM pages WHERE website_link="{}"'.format(website_link))
+    print(shortcut, file=sys.stderr)
+    print(page, file=sys.stderr)
+    if shortcut:
+        return redirect(shortcut[0]['external_link'])
+    elif page:
+        return susa_render('gen_page.html', page = page[0])
+    abort(404)
 
 # Error pages
 @app.errorhandler(403)

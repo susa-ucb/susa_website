@@ -16,8 +16,8 @@ with open(CONFIG, 'r') as config:
     secrets = yaml.load(config, Loader=yaml.BaseLoader)
 SECRET_KEY = secrets['secret']
 settings = {
-'semester' : None,
-'recruiting' : None
+    'semester' : None,
+    'recruiting' : None
 }
 
 app = Flask(__name__)

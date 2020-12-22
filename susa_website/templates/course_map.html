@@ -9,22 +9,22 @@
 
 {% block content %}
 <div class = "text-container">
-  <div id = "guide-container">
-    <div id="course-map">
-      <svg height="850" width="1200" id = "courses">
-        <rect height="850" width="1200" style="fill:rgb(0,0,0,0);stroke:rgb(0,0,0,0);" onclick="curActive.unHighlightAll(els); curActive.unShowDetails();"/>
-        <text transform="translate(600,50)" id="title">Statistics Course Map BETA*</text>
-        <marker id="triangle" viewBox="0 0 10 10"
-              refX="1" refY="5"
-              markerWidth="10" markerHeight="10"
-              orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
-        </marker>
-        <marker id="rev-triangle" viewBox="0 0 10 10"
-              refX="1" refY="5"
-              markerWidth="10" markerHeight="10"
-              orient="180deg">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    <div id = "guide-container">
+        <div id="course-map">
+            <svg height="850" width="1200" id = "courses">
+                <rect height="850" width="1200" style="fill:rgb(0,0,0,0);stroke:rgb(0,0,0,0);" onclick="curActive.unHighlightAll(els); curActive.unShowDetails();"/>
+                <text transform="translate(600,50)" id="title">Statistics Course Map BETA*</text>
+                <marker id="triangle" viewBox="0 0 10 10"
+                refX="1" refY="5"
+                markerWidth="10" markerHeight="10"
+                orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+            </marker>
+            <marker id="rev-triangle" viewBox="0 0 10 10"
+            refX="1" refY="5"
+            markerWidth="10" markerHeight="10"
+            orient="180deg">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
         </marker>
         <text transform="translate(1050,675)">Required</text>
         <line x1="1000" y1="685" x2="1100" y2="685" class="legend-edge"></line>
@@ -33,50 +33,50 @@
         <text transform="translate(1050,785)">Co req/rec</text>
         <line x1="1000" y1="795" x2="1100" y2="795" class="legend-edge double-edge"></line>
         <line x1="1000" y1="815" x2="1100" y2="815" class="legend-edge opt-edge double-edge"></line>
-      </svg>
-    </div>
-    <div id = "course-info">
-      <span id = "default-info">
+    </svg>
+</div>
+<div id = "course-info">
+    <span id = "default-info">
         <h1> Information Pane </h1>
         <p> Click any circle to see more information or pre/corequisites and courses to take after a course!</p>
         <p> Click anywhere else on the map to clear all highlights and information </p>
         <p> Details about a given course can be seen in this pane. </p>
         <p> When you click on a course, your chosen course(s) will be highlighted in <span>orange</span>, possible prerequisites will be highlighted in <span>green</span>, and courses that you might be able to take will be highlighted in <span>blue</span>. </p>
         <p> For further clarification on a course, feel free to contact us at contact@susa.berkeley.edu </p>
-      </span>
-      <span id = "active-info">
-      </span>
-      <div style = "display: none;">
+    </span>
+    <span id = "active-info">
+    </span>
+    <div style = "display: none;">
         {% for item in catalogue %}
         <div class="cat-item" id="cat-{{ item.num }}">
-          {% if item.code %}
-          <h2> {{ item.code }} </h2>
-          {% endif %}
-          {% if item.title %}
-          <h3> {{ item.title }} </h3>
-          {% endif %}
-          {% if item.units %}
-          <p> <i>{{ item.units }}</i> </p>
-          {% endif %}
-          <h4> Description: </h4>
-          {% if item.desc %}
-          <p> {{ item.desc }} </p>
-          {% endif %}
-          {% if item.details %}
-          <span> {{ Markup(item.details) }} </span>
-          {% endif %}
+            {% if item.code %}
+            <h2> {{ item.code }} </h2>
+            {% endif %}
+            {% if item.title %}
+            <h3> {{ item.title }} </h3>
+            {% endif %}
+            {% if item.units %}
+            <p> <i>{{ item.units }}</i> </p>
+            {% endif %}
+            <h4> Description: </h4>
+            {% if item.desc %}
+            <p> {{ item.desc }} </p>
+            {% endif %}
+            {% if item.details %}
+            <span> {{ Markup(item.details) }} </span>
+            {% endif %}
         </div>
         {% endfor %}
-      </div>
     </div>
-  </div>
-  <div id = "text">
+</div>
+</div>
+<div id = "text">
     <p> * This course map is still UNDER DEVELOPMENT, and in its current state, DOES NOT REFLECT the entire opinion of the statistics department or SUSA </p>
-    <p> Disclaimer: This course map does not accurately reflect the classes/background you need to take a course; all and only possible prerequisites in Statistics/Data Science will be highlighted when using this course map. </p>
+    <p> Disclaimer: The course map does not accurately reflect the classes/background you need to take a course; all and only possible prerequisites in Statistics/Data Science will be highlighted when using this course map. </p>
     <p> Special thanks to <a href="https://statistics.berkeley.edu/people/william-fithian">Prof. Fithian</a> and our <a href="https://statistics.berkeley.edu/programs/undergrad/advising">undergrad advisors Denise and Natalie</a> for feedback! </p>
     <p> Most course information scraped from from the <a href="http://guide.berkeley.edu/courses/">Berkeley course catalog</a>. </p>
     <p> Designed and implemented by Edward Chang. </p>
-  </div>
+</div>
 </div>
 
 <script type="text/javascript" src="/static/scripts/course_map/course_map.js"></script>

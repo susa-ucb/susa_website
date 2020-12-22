@@ -2,45 +2,43 @@
 <html lang = "en-US">
 <head>
     <!--
-        Created by Edward Chang - 2020 Fall
-    -->
-    <title> {% block title %} {% endblock %} </title>
-    <meta name = "description" content = "SUSA is the Statistics Undergraduate Student Organization sponsored by the UC Berkeley Statistics department.">
-    <meta charset = "UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    <!-- Use fontawesome icons
-    TODO: Current website maintainer needs to register a new kit code -->
-    <script defer src="/static/fa/js/all.js"></script>
-    <link rel = "stylesheet" type = "text/css" href = "/static/css/nav.css">
-    <link rel = "stylesheet" type = "text/css" href = "/static/css/footer.css">
-    <link rel = "stylesheet" type = "text/css" href = "/static/css/general.css">
-    {% block head_css %} {% endblock %}
-    <link rel = "icon" href = "/static/images/susa-icon-196x196.png">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-    <meta http-equiv="Cache-Control" content="max-age=31536000">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    Created by Edward Chang - 2020 Fall
+-->
+<title> {% block title %} {% endblock %} </title>
+<meta name = "description" content = "SUSA is the Statistics Undergraduate Student Organization sponsored by the UC Berkeley Statistics department.">
+<meta charset = "UTF-8">
+<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+<script defer src="/static/vendor/fa/js/all.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "/static/css/nav.css">
+<link rel = "stylesheet" type = "text/css" href = "/static/css/footer.css">
+<link rel = "stylesheet" type = "text/css" href = "/static/css/general.css">
+{% block head_css %} {% endblock %}
+<link rel = "icon" href = "/static/images/susa-icon-196x196.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+<meta http-equiv="Cache-Control" content="max-age=31536000">
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164308289-1"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-164308289-1');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-164308289-1');
 </script>
 
 </head>
 <body>
-<!-- JS for responsive nav-bar -->
+    <!-- JS for responsive nav-bar -->
     <script>
-        function dropDown() {
-            var x = document.getElementById("bar");
-            if (x.className === "nav-bar") {
-                x.className += " responsive";
-            } else {
-                x.className = "nav-bar";
-            }
+    function dropDown() {
+        var x = document.getElementById("bar");
+        if (x.className === "nav-bar") {
+            x.className += " responsive";
+        } else {
+            x.className = "nav-bar";
         }
+    }
     </script>
     <nav class = "nav-bar" id = "bar">
         <a class="logo" title="Return to the main page" href="/">
@@ -92,99 +90,99 @@
             {% endif %}
         </ul>
     </nav>
-{% block content %} {% endblock %}
-<footer class = "footer-container">
-    <hr>
-    <div id = "footer">
-        <div class = "row" id = "top">
-            <div class = "column" id = "left">
-                <ul>
-                    <li><h2> Site map </h2></li>
-                    {% if logged_in %}
-                    <li class = "foot-link admin-ind-cont">
-                        <a href = "/admin" title="Admin Panel" class='admin-ind' title="Go to the admin panel.">
-                            ADMIN PANEL
-                        </a>
-                    </li>
-                    {% endif %}
-                    <li class = "foot-link">
-                        <a href = "/" title="Return to main page.">
-                            <i class="fas fa-home" aria-hidden="true"></i>&nbsp;Home
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href = "/team" title="Meet our team.">
-                            <i class="fas fa-users" aria-hidden="true"></i>&nbsp;Our team
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href = "/events" title="Go to the events page.">
-                            <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;Events
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href = "/resources" title="Go to the resources page.">
-                            <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Resources
-                        </a>
-                    </li>
-                    <li class="foot-link">
-                        <a href="/apply" title="Join our officer team.">
-                            <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Apply
-                        </a>
-                    </li>
-                </ul>
+    {% block content %} {% endblock %}
+    <footer class = "footer-container">
+        <hr>
+        <div id = "footer">
+            <div class = "row" id = "top">
+                <div class = "column" id = "left">
+                    <ul>
+                        <li><h2> Site map </h2></li>
+                        {% if logged_in %}
+                        <li class = "foot-link admin-ind-cont">
+                            <a href = "/admin" title="Admin Panel" class='admin-ind' title="Go to the admin panel.">
+                                ADMIN PANEL
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class = "foot-link">
+                            <a href = "/" title="Return to main page.">
+                                <i class="fas fa-home" aria-hidden="true"></i>&nbsp;Home
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href = "/team" title="Meet our team.">
+                                <i class="fas fa-users" aria-hidden="true"></i>&nbsp;Our team
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href = "/events" title="Go to the events page.">
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;Events
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href = "/resources" title="Go to the resources page.">
+                                <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Resources
+                            </a>
+                        </li>
+                        <li class="foot-link">
+                            <a href="/apply" title="Join our officer team.">
+                                <i class="fas fa-folder" aria-hidden="true"></i>&nbsp;Apply
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <address class = "column" id = "middle">
+                    <ul>
+                        <li><h2> Email </h2></li>
+                        <li class = "foot-link"><a href = "mailto:contact@susa.berkeley.edu" title="Send an email to our team.">Our Team</a></li>
+                        {% if footer_emails %}{% for email in footer_emails %}
+                        <li class = "foot-link"><a href = "mailto:{{email.email}}" title="Send an email to our {{email.role}}.">{{email.role}}</a></li>
+                        {% endfor %}{% endif %}
+                    </ul>
+                </address>
+                <div class = "column" id = "right">
+                    <ul>
+                        <li><h2>Follow Us!</h2></li>
+                        <li class = "foot-link">
+                            <a href="/subscribe" title="Subscribe to our mailing list.">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Mailing List
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href="https://www.facebook.com/susa.berkeley/" title="Go to our Facebook page.">
+                                <i class="fab fa-facebook-square" aria-hidden="true"></i>&nbsp;Facebook
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href="https://github.com/susa-ucb" title="Go to our GitHub Organization.">
+                                <i class="fab fa-github-square" aria-hidden="true"></i>&nbsp;GitHub
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href="https://discord.com/invite/Am8yXHF" title="Join our Discord server.">
+                                <i class="fab fa-discord" aria-hidden="true"></i>&nbsp;Discord
+                            </a>
+                        </li>
+                        <li class = "foot-link">
+                            <a href="https://www.ocf.berkeley.edu" title="Go to the OCF main page.">
+                                <img src="/static/images/ocf-hosted-penguin-dark.svg" alt="Hosted by the OCF" style="border: 0;" alt = "OCF Logo"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <address class = "column" id = "middle">
-                <ul>
-                    <li><h2> Email </h2></li>
-                    <li class = "foot-link"><a href = "mailto:contact@susa.berkeley.edu" title="Send an email to our team.">Our Team</a></li>
-                    {% if footer_emails %}{% for email in footer_emails %}
-                    <li class = "foot-link"><a href = "mailto:{{email.email}}" title="Send an email to our {{email.role}}.">{{email.role}}</a></li>
-                    {% endfor %}{% endif %}
-                </ul>
-            </address>
-            <div class = "column" id = "right">
-                <ul>
-                    <li><h2>Follow Us!</h2></li>
-                    <li class = "foot-link">
-                        <a href="/subscribe" title="Subscribe to our mailing list.">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Mailing List
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href="https://www.facebook.com/susa.berkeley/" title="Go to our Facebook page.">
-                            <i class="fab fa-facebook-square" aria-hidden="true"></i>&nbsp;Facebook
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href="https://github.com/susa-ucb" title="Go to our GitHub Organization.">
-                            <i class="fab fa-github-square" aria-hidden="true"></i>&nbsp;GitHub
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href="https://discord.com/invite/Am8yXHF" title="Join our Discord server.">
-                            <i class="fab fa-discord" aria-hidden="true"></i>&nbsp;Discord
-                        </a>
-                    </li>
-                    <li class = "foot-link">
-                        <a href="https://www.ocf.berkeley.edu" title="Go to the OCF main page.">
-                            <img src="/static/images/ocf-hosted-penguin-dark.svg" alt="Hosted by the OCF" style="border: 0;" alt = "OCF Logo"/>
-                        </a>
-                    </li>
-                </ul>
+            <div class = "row" id = "bottom">
+                <p>
+                    ©2020 Statistics Undergraduate Student Association. All Rights Reserved. <br>
+                    Design by Edward Chang.
+                </p>
+                <p>
+                    We are a student group acting independently of the University of California. <br>
+                    We take full responsibility for our organization and this web site.
+                </p>
             </div>
         </div>
-        <div class = "row" id = "bottom">
-            <p>
-                ©2020 Statistics Undergraduate Student Association. All Rights Reserved. <br>
-                Design by Edward Chang.
-            </p>
-            <p>
-                We are a student group acting independently of the University of California. <br>
-                We take full responsibility for our organization and this web site.
-            </p>
-        </div>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>
